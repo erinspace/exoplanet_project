@@ -7,9 +7,10 @@
 		<title>ErinSpace</title>
 		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+        <script type = "text/javascript" src="./js/d3.v3.js"></script>
         <script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.js"></script>
-		<script type = "text/javascript" src="./js/d3.v3.js"></script>
+		
 	</head>
 
 	<body>
@@ -19,23 +20,39 @@
 		</div>
         <script>
             var source = "systems.xml";
-            var xmldata = null;
 
-            d3.xml(source, "application/xml", function(xml) {
+            d3.xml(source, "text/xml", function(xml) {
                 xmldata = xml;
-                updateTable(true);
             });
 
-            var updateTable = function(first) {
-                $("#name").html($("name", xmldata).text());
-                console.log($("name", xmldata).text());
+            var updateTable = function() {
+                $("#name").html($("system > name", xmldata).text());
+                console.log($("system > name", xmldata).text());
+
+                // var xkey = 
+
+                // var ykey = 
+
+                var x_axis = d3.svg.axis()
+                            .scale(d3.scale.log())
+                            .ticks(5)
+                            .orient("bottom");
+                var y_axis = d3.svg.axis()
+                            .scale(d3.scale.log())
+                            .ticks(5)
+                            .orient("left");
+
+                console.log("AHHH button");
+
+                
             }
 
-            
         </script>
+            <div class="container">
+                <button type="button" class="btn btn-default" onclick="updateTable()">Test Button</button>
+            </div>
 
-         <div id="name">&nbsp;</div>
-
+            <div id="name">&nbsp;</div>
 
 	</body>
 
