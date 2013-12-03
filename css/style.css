@@ -5,3 +5,7 @@ body{
   /*background-repeat:repeat;*/
   /*background: linear-gradient(silver, black);*/
 }
+
+#graph{
+    float:left;
+}
