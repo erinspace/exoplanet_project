@@ -1,11 +1,18 @@
 body{
   /*background-image: url(../img/gray_sand_lighter.png);*/
-  background-image: url(../img/space.jpg);
+  /*background-image: url(../img/space.jpg);*/
+
+  /*background-color: blue;*/
 
   /*background-repeat:repeat;*/
   /*background: linear-gradient(silver, black);*/
 }
 
-#graph{
-    float:left;
+.graph div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
 }
