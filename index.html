@@ -18,10 +18,12 @@
 			<h1>ErinSpace - Exoplanets</h1>
 		</div>
         <script>
+
+            // load the XML and set up the data object
             var source = "systems.xml";
             var data = [];
 
-            // extracting objects from XML
+            // extracting objects from the XML
             d3.xml(source, "text/xml", function(xml) {
                 d3.select(xml).selectAll("planet").each(
                     function() {
@@ -36,9 +38,9 @@
                         var discoverymethod = d3.select(this).select("discoverymethod");
                         var discoveryyear = d3.select(this).select("discoveryyear");
 
-                        // check to see if the planet has all the properties, and add if it does
+                        // check to see if the planet has all the properties we want
+                        // and add it to the data object if it does
                         if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
-
                             planet.name = name.text();
                             planet.mass = mass.text();
                             planet.radius = radius.text();
@@ -46,9 +48,9 @@
                             planet.semimajoraxis = semimajoraxis.text();
                             planet.discoverymethod = discoverymethod.text();
                             planet.discoveryyear = discoveryyear.text();
+
                             data.push(planet);
                         }
-
                     }
                 );
             });
@@ -56,35 +58,45 @@
             // Set up the SVG 
             var width = 600;
             var height = 500;
- 
-            // .attr("width", width)
-            // .attr("height", height); 
 
-            // function to update the graph
+            // .attr("width", width)
+            // .attr("height", height);
+
+            //set the standard display parameter
+            var display = 'mass';
+
+            // function to update the test bar graph
             var updateGraph = function() {
                 console.log(data);
+                console.log(display);
 
                 d3.select("#graph")
                     .selectAll("div")
                         .data(data)
                     .enter().append("div")
-                        .style("width", function(d) { return d.mass * 100 + "px"; })
-                        .text(function(d) { return d['mass']; });
+                        .style("width", function(d) { return d[display] * 100 + "px"; })
+                        .text(function(d) { return d[display]; });
+            }
+
+            var changeDisplay = function() {
+                display = 'radius';
+            }
 
                 // var xkey = 
 
                 // var ykey = 
 
-                // var x_axis = d3.svg.axis()
-                //             .scale(d3.scale.log())
-                //             .ticks(5)
-                //             .orient("bottom");
-                // var y_axis = d3.svg.axis()
-                //             .scale(d3.scale.log())
-                //             .ticks(5)
-                //             .orient("left");
+                // set up the scatterplot
+                var x_axis = d3.svg.axis()
+                            .scale(d3.scale.log())
+                            .ticks(5)
+                            .orient("bottom");
+                var y_axis = d3.svg.axis()
+                            .scale(d3.scale.log())
+                            .ticks(5)
+                            .orient("left");
                 
-            }
+            
 
         </script>
             <div class="container">
@@ -93,14 +105,15 @@
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Choose Display <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Radius</a></li>
+                        <li onclick="changeDisplay()"><a href="#">Radius</a></li>
                         <li><a href="#">Mass</a></li>
                         <li><a href="#">Period</a></li>
                     </ul>
                 </div>
             </div>
-            
-            <div id="graph" class="container">This will be a graph</div>
+
+            <div id="plot" class="container">This will be the test scatterplot</div>
+            <div id="graph" class="container">This will be the test bar chart</div>
 
             <div id="name">&nbsp;</div>
 
