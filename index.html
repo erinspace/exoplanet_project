@@ -15,8 +15,7 @@
 
 	<body>
 		<div class="container">
-			<h1>ErinSpace</h1>
-            <h2>TEST TEXT!!</h2>
+			<h1>ErinSpace - Exoplanets</h1>
 		</div>
         <script>
             var source = "systems.xml";
@@ -24,24 +23,31 @@
 
             // extracting objects from XML
             d3.xml(source, "text/xml", function(xml) {
-                d3.select(xml).selectAll("system star").each(
+                d3.select(xml).selectAll("planet").each(
                     function() {
-                        var star = {'planets': []};
 
-                        d3.select(this).selectAll("planet").each(
-                            function() {star.planets.push(d3.select(this).select('name').text()); }
-                        )
+                        var planet = {};
 
-                        var radius = d3.select(this).select("radius");
+                        var name = d3.select(this).select("name");
                         var mass = d3.select(this).select("mass");
-                        if(radius[0][0] && mass[0][0]) {
-                            star.radius = radius.text();
-                            star.mass = mass.text();
-                            data.push(star);
+                        var radius = d3.select(this).select("radius");
+                        var period = d3.select(this).select("period");
+                        var semimajoraxis = d3.select(this).select("semimajoraxis");
+                        var discoverymethod = d3.select(this).select("discoverymethod");
+                        var discoveryyear = d3.select(this).select("discoveryyear");
+
+                        // check to see if the planet has all the properties, and add if it does
+                        if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
+
+                            planet.name = name.text();
+                            planet.mass = mass.text();
+                            planet.radius = radius.text();
+                            planet.period = period.text();
+                            planet.semimajoraxis = semimajoraxis.text();
+                            planet.discoverymethod = discoverymethod.text();
+                            planet.discoveryyear = discoveryyear.text();
+                            data.push(planet);
                         }
-
-
-
 
                     }
                 );
@@ -58,12 +64,12 @@
             var updateGraph = function() {
                 console.log(data);
 
-                d3.select(".graph")
+                d3.select("#graph")
                     .selectAll("div")
                         .data(data)
                     .enter().append("div")
-                        .style("width", function(d) { return d.radius * 100 + "px"; })
-                        .text(function(d) { return d['radius']; });
+                        .style("width", function(d) { return d.mass * 100 + "px"; })
+                        .text(function(d) { return d['mass']; });
 
                 // var xkey = 
 
@@ -83,8 +89,18 @@
         </script>
             <div class="container">
                 <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
+                <br/>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Choose Display <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Radius</a></li>
+                        <li><a href="#">Mass</a></li>
+                        <li><a href="#">Period</a></li>
+                    </ul>
+                </div>
             </div>
-            <div id="graph" class="graph">This will be a graph</div>
+            
+            <div id="graph" class="container">This will be a graph</div>
 
             <div id="name">&nbsp;</div>
 

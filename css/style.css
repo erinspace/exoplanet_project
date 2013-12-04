@@ -8,7 +8,7 @@ body{
   /*background: linear-gradient(silver, black);*/
 }
 
-.graph div {
+#graph div {
   font: 10px sans-serif;
   background-color: steelblue;
   text-align: right;
