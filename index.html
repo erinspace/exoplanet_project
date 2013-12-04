@@ -20,9 +20,31 @@
 		</div>
         <script>
             var source = "systems.xml";
+            var data = [];
 
+            // extracting objects from XML
             d3.xml(source, "text/xml", function(xml) {
-                xmldata = xml;
+                d3.select(xml).selectAll("system star").each(
+                    function() {
+                        var star = {'planets': []};
+
+                        d3.select(this).selectAll("planet").each(
+                            function() {star.planets.push(d3.select(this).select('name').text()); }
+                        )
+
+                        var radius = d3.select(this).select("radius");
+                        var mass = d3.select(this).select("mass");
+                        if(radius[0][0] && mass[0][0]) {
+                            star.radius = radius.text();
+                            star.mass = mass.text();
+                            data.push(star);
+                        }
+
+
+
+
+                    }
+                );
             });
 
             // Set up the SVG 
@@ -34,15 +56,14 @@
 
             // function to update the graph
             var updateGraph = function() {
-                $("#name").html($("system > star > radius", xmldata).text());
-                console.log($("system > star > radius", xmldata).text());
+                console.log(data);
 
                 d3.select(".graph")
                     .selectAll("div")
-                        .data($("system > star > radius", xmldata).text())
+                        .data(data)
                     .enter().append("div")
-                        .style("width", function(d) { return d * 10 + "px"; })
-                        .text(function(d) { return d; });
+                        .style("width", function(d) { return d.radius * 100 + "px"; })
+                        .text(function(d) { return d['radius']; });
 
                 // var xkey = 
 
