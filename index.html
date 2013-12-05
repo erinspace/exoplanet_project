@@ -10,7 +10,7 @@
         <script type = "text/javascript" src="./js/d3.v3.js"></script>
         <script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.js"></script>
-		
+
 	</head>
 
 	<body>
@@ -84,7 +84,7 @@
                 width = 600 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
-            var x = d3.scale.log()
+            var x = d3.scale.linear()
                     .range([0, width]);
 
             var y = d3.scale.linear()
@@ -130,7 +130,7 @@
 
                 xkey = $(xaxis).val();
                 ykey = $(yaxis).val();
-                
+
                 d3.select("svg").remove();
                 var svg = d3.select("#plot")
                     .append("svg")
@@ -175,7 +175,7 @@
 
                     // .attr("cy", 2)
                     .style("fill", function(d) { return color(d[point_color]); });
-            };  
+            };
 
         </script>
 
@@ -188,7 +188,6 @@
                         <td>x-axis</td>
                         <td>
                             <select id="xaxis" class="form-control input-lg" onchange="updatePlot()">
-                                <option data-placeholder="true">x-axis:</option>
                                 <option value="radius">Radius</option>
                                 <option value="mass">Mass</option>
                                 <option value="period">Period</option>
@@ -199,7 +198,6 @@
                         <td>y-axis</td>
                         <td>
                             <select id="yaxis" class="form-control input-lg" onchange="updatePlot()">
-                                <option data-placeholder="true">y-axis:</option>
                                 <option value="radius">Radius</option>
                                 <option value="mass">Mass</option>
                                 <option value="period">Period</option>
