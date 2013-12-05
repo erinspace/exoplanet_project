@@ -195,7 +195,8 @@
                     .attr("r", function(d) { return d[point_radius] * 3 ; })
                     .attr("cx", function(d) { return x(d[xkey]); })
                     .attr("cy", function(d) { return y(d[ykey]); })
-                    .style("fill", function(d) { return color(d[point_color]); });
+                    .style("fill", function(d) { return color(d[point_color]); })
+                    .style("stroke", "black");
 
                 // d3.select("input").on("change", change);
                 change();
@@ -229,6 +230,7 @@
                     .text(function(d) { return d; });
             };
 
+            // this... does nothing.
             function change() {
 
                 var x0 = x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
