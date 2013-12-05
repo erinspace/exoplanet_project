@@ -229,58 +229,62 @@
             };
 
         </script>
-
             <div class="container">
-                <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
-                <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
-                <br/>
-                <table>
-                    <tr>
-                        <td>x-axis</td>
-                        <td>
-                            <select id="xaxis" class="form-control" onchange="updatePlot()">
-                                <option value="radius">Radius</option>
-                                <option value="mass">Mass</option>
-                                <option value="period">Period</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>y-axis</td>
-                        <td>
-                            <select id="yaxis" class="form-control" onchange="updatePlot()">
-                                <option value="radius">Radius</option>
-                                <option value="mass">Mass</option>
-                                <option value="period">Period</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>size</td>
-                        <td>
-                            <select id="pointradius" class="form-control" onchange="updatePlot()">
-                                <option value="radius">Radius</option>
-                                <option value="mass">Mass</option>
-                                <option value="period">Period</option>
-                            </select>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td>color</td>
-                        <td>
-                            <select id="pointcolor" class="form-control" onchange="updatePlot()">
-                                <option value="discoveryyear">discovery year</option>
-                                <option value="discoverymethod">discovery method</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
+                            <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
+                            <br/>
+                            <table>
+                                <tr>
+                                    <td>x-axis</td>
+                                    <td>
+                                        <select id="xaxis" class="form-control" onchange="updatePlot()">
+                                            <option value="radius">Radius</option>
+                                            <option value="mass">Mass</option>
+                                            <option value="period">Period</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>y-axis</td>
+                                    <td>
+                                        <select id="yaxis" class="form-control" onchange="updatePlot()">
+                                            <option value="radius">Radius</option>
+                                            <option value="mass">Mass</option>
+                                            <option value="period">Period</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>size</td>
+                                    <td>
+                                        <select id="pointradius" class="form-control" onchange="updatePlot()">
+                                            <option value="radius">Radius</option>
+                                            <option value="mass">Mass</option>
+                                            <option value="period">Period</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>color</td>
+                                    <td>
+                                        <select id="pointcolor" class="form-control" onchange="updatePlot()">
+                                            <option value="discoveryyear">discovery year</option>
+                                            <option value="discoverymethod">discovery method</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="span9">
+                            <div id="plot"></div>
+                            <div id="graph">This will be the test bar chart</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div id="plot" class="container">This will be the test scatterplot</div>
-            <div id="graph" class="container">This will be the test bar chart</div>
-
-            <!-- <div id="name">&nbsp;</div> -->
 
 	</body>
 
