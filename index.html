@@ -7,9 +7,12 @@
 		<title>ErinSpace</title>
 		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css"/>
         <script type = "text/javascript" src="./js/d3.v3.js"></script>
         <script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.js"></script>
+
+        <!-- show the plot on load -->
         <script type="text/javascript">
             $( document ).ready(function() {
                 updatePlot();
@@ -30,9 +33,7 @@
 	</head>
 
 	<body>
-		<div class="container">
-			<h1>Exoplanets</h1>
-		</div>
+
         <script>
 
             // load the XML and set up the data object
@@ -229,8 +230,11 @@
             };
 
         </script>
+
             <div class="container">
+
                 <div class="container-fluid">
+                    <h1>Exoplanets</h1>
                     <div class="row-fluid">
                         <div class="span3">
                             <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
