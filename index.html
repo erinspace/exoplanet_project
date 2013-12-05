@@ -149,6 +149,8 @@
                 // read the values from the axes select choices
                 xkey = $(xaxis).val();
                 ykey = $(yaxis).val();
+                point_color = $(pointcolor).val();
+                point_radius = $(pointradius).val();
 
                 // get rid of the old graph
                 d3.select("svg").remove();
@@ -200,6 +202,9 @@
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); });
 
+                // get rid of the old legend - does not work right now
+                svg.selectAll(".legend").remove();
+
                 // create a color legend
                 var legend = svg.selectAll(".legend")
                     .data(color.domain())
@@ -247,6 +252,25 @@
                                 <option value="radius">Radius</option>
                                 <option value="mass">Mass</option>
                                 <option value="period">Period</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>size</td>
+                        <td>
+                            <select id="pointradius" class="form-control" onchange="updatePlot()">
+                                <option value="radius">Radius</option>
+                                <option value="mass">Mass</option>
+                                <option value="period">Period</option>
+                            </select>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>color</td>
+                        <td>
+                            <select id="pointcolor" class="form-control" onchange="updatePlot()">
+                                <option value="discoveryyear">discovery year</option>
+                                <option value="discoverymethod">discovery method</option>
                             </select>
                         </td>
                     </tr>
