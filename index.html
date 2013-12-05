@@ -16,6 +16,7 @@
             });
         </script>
 
+        <!-- Google analytics, cause why not -->
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -26,13 +27,11 @@
             ga('send', 'pageview');
         </script>
 
-
-
 	</head>
 
 	<body>
 		<div class="container">
-			<h1>ErinSpace - Exoplanets</h1>
+			<h1>Exoplanets</h1>
 		</div>
         <script>
 
@@ -70,6 +69,7 @@
                             data.push(planet);
                         }
 
+                        // trying a solution to the log problem, this dosen't work though!
                         if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
                             planet.name = name.text();
                             planet.mass = mass.text();
@@ -101,6 +101,7 @@
                 width = 600 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
+            // set up information for the svg element
             var x = d3.scale.linear()
                     .range([0, width]);
 
@@ -145,10 +146,14 @@
 
             var updatePlot = function() {
 
+                // read the values from the axes select choices
                 xkey = $(xaxis).val();
                 ykey = $(yaxis).val();
 
+                // get rid of the old graph
                 d3.select("svg").remove();
+
+                // create a new svg element
                 var svg = d3.select("#plot")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
@@ -156,9 +161,12 @@
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+                // set domains for both x and y
                 x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
                 y.domain(d3.extent(data, function(d) { return d[ykey]; })).nice();
 
+                // adds different 'g' elements to the svg plot
+                // x axis
                 svg.append("g")
                     .attr("class", "x axis")
                     .attr("transform", "translate(0," + height + ")")
@@ -170,6 +178,7 @@
                     .style("text-anchor", "end")
                     .text(xkey);
 
+                // y-axis
                 svg.append("g")
                     .attr("class", "y axis")
                     .call(y_axis)
@@ -181,17 +190,37 @@
                     .style("text-anchor", "end")
                     .text(ykey);
 
+                // add the circles to the graph
                 svg.selectAll(".dot")
-                    .data(data_nonzero)
+                    .data(data)
                 .enter().append("circle")
                     .attr("class", "dot")
                     .attr("r", function(d) { return d[point_radius] * 3 ; })
                     .attr("cx", function(d) { return x(d[xkey]); })
-                    // .attr("cy", function(d) { return y(Number(d[ykey])); })
                     .attr("cy", function(d) { return y(d[ykey]); })
-
-                    // .attr("cy", 2)
                     .style("fill", function(d) { return color(d[point_color]); });
+
+                // create a color legend
+                var legend = svg.selectAll(".legend")
+                    .data(color.domain())
+                .enter().append("g")
+                    .attr("class", "legend")
+                    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+                // add the legend colors to the svg object
+                legend.append("rect")
+                    .attr("x", width - 18)
+                    .attr("width", 18)
+                    .attr("height", 18)
+                    .style("fill", color);
+
+                // add text to the legend
+                legend.append("text")
+                    .attr("x", width - 24)
+                    .attr("y", 9)
+                    .attr("dy", ".35em")
+                    .style("text-anchor", "end")
+                    .text(function(d) { return d; });
             };
 
         </script>
@@ -204,7 +233,7 @@
                     <tr>
                         <td>x-axis</td>
                         <td>
-                            <select id="xaxis" class="form-control input-lg" onchange="updatePlot()">
+                            <select id="xaxis" class="form-control" onchange="updatePlot()">
                                 <option value="radius">Radius</option>
                                 <option value="mass">Mass</option>
                                 <option value="period">Period</option>
@@ -214,7 +243,7 @@
                     <tr>
                         <td>y-axis</td>
                         <td>
-                            <select id="yaxis" class="form-control input-lg" onchange="updatePlot()">
+                            <select id="yaxis" class="form-control" onchange="updatePlot()">
                                 <option value="radius">Radius</option>
                                 <option value="mass">Mass</option>
                                 <option value="period">Period</option>
