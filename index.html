@@ -100,7 +100,7 @@
                         .scale(y)
                         .orient("left");
 
-            // create svg element
+            // create svg element - this does nothing right now!!
             var svg = d3.select("#plot")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
@@ -125,31 +125,12 @@
                         .text(function(d) { return d[display]; });
             }
 
-            var changeDisplay = function() {
-                xkey = "radius";
-                ykey = "mass";
-                point_radius = "radius";
-            }
-
-            function render() {
-                var div = d3.selectAll("div")
-                    .data(data);
-
-                    div.enter()
-                    .append("circle")
-                    .attr("class", "dot")
-                    .attr("r", function(d) { return d[point_radius] * 3 ; })
-                    .attr("cx", function(d) { return x(d[xkey]); })
-                    // .attr("cy", function(d) { return y(Number(d[ykey])); })
-                    .attr("cy", function(d) { return y(d[ykey]); })
-
-                    // .attr("cy", 2)
-                    .style("fill", function(d) { return color(d[point_color]); });
-            }
 
             var updatePlot = function() {
-                
 
+                xkey = $(xaxis).val();
+                ykey = $(yaxis).val();
+                
                 d3.select("svg").remove();
                 var svg = d3.select("#plot")
                     .append("svg")
@@ -201,7 +182,6 @@
             <div class="container">
                 <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
                 <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
-                <button type="button" class="btn btn-default" onclick="render()">Render Me</button>
                 <br/>
                 <table>
                     <tr>
