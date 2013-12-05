@@ -99,7 +99,7 @@
              // set up the scatterplot variables
             var margin = {top: 20, right: 20, bottom: 30, left: 40},
                 width = 600 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+                height = 600 - margin.top - margin.bottom;
 
             // set up information for the svg element
             var x = d3.scale.linear()
@@ -118,13 +118,7 @@
                         .scale(y)
                         .orient("left");
 
-            // create svg element - this does nothing right now!!
-            var svg = d3.select("#plot")
-                .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            // creates experimental transition maybe?
 
 
             // function to update the test bar graph
@@ -156,7 +150,8 @@
                 d3.select("svg").remove();
 
                 // create a new svg element
-                var svg = d3.select("#plot")
+                // made this global -- fix later?!?!
+                svg = d3.select("#plot")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -202,11 +197,14 @@
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); });
 
+                // d3.select("input").on("change", change);
+                change();
+
                 // get rid of the old legend - does not work right now
                 svg.selectAll(".legend").remove();
 
                 //Exit rectangles - ok now this got rid of the legend altogether
-                legend.exit().remove();
+                // legend.exit().remove();
 
                 // create a color legend
                 var legend = svg.selectAll(".legend")
@@ -230,6 +228,25 @@
                     .style("text-anchor", "end")
                     .text(function(d) { return d; });
             };
+
+            function change() {
+
+                var x0 = x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
+
+                var transition = svg.transition().duration(750),
+                    delay = function(d, i) { return i * 50; };
+
+                transition.selectAll(".dot")
+                        .delay(delay)
+                        .attr("x", function(d) { return x0(d[xkey]); });
+
+                transition.select("x.axis")
+                        .call(x_axis)
+                    .selectAll("g")
+                        .delay(delay);
+
+            }
+
 
         </script>
 
