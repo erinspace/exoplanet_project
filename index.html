@@ -84,13 +84,29 @@
                 width = 600 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
+            var x = d3.scale.log()
+                    .range([0, width]);
+
+            var y = d3.scale.linear()
+                    .range([height, 0]);
+
+            var color = d3.scale.category10();
+
+            var x_axis = d3.svg.axis()
+                        .scale(x)
+                        .orient("bottom");
+
+            var y_axis = d3.svg.axis()
+                        .scale(y)
+                        .orient("left");
+
             // create svg element
-                // var svg = d3.select("#plot")
-                //     .append("svg")
-                //     .attr("width", width + margin.left + margin.right)
-                //     .attr("height", height + margin.top + margin.bottom)
-                //     .append("g")
-                //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            var svg = d3.select("#plot")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
             // function to update the test bar graph
@@ -115,25 +131,26 @@
                 point_radius = "radius";
             }
 
+            function render() {
+                var div = d3.selectAll("div")
+                    .data(data);
+
+                    div.enter()
+                    .append("circle")
+                    .attr("class", "dot")
+                    .attr("r", function(d) { return d[point_radius] * 3 ; })
+                    .attr("cx", function(d) { return x(d[xkey]); })
+                    // .attr("cy", function(d) { return y(Number(d[ykey])); })
+                    .attr("cy", function(d) { return y(d[ykey]); })
+
+                    // .attr("cy", 2)
+                    .style("fill", function(d) { return color(d[point_color]); });
+            }
+
             var updatePlot = function() {
+                
 
-               
-                var x = d3.scale.log()
-                        .range([0, width]);
-
-                var y = d3.scale.linear()
-                        .range([height, 0]);
-
-                var color = d3.scale.category10();
-
-                var x_axis = d3.svg.axis()
-                            .scale(x)
-                            .orient("bottom");
-
-                var y_axis = d3.svg.axis()
-                            .scale(y)
-                            .orient("left");
-
+                d3.select("svg").remove();
                 var svg = d3.select("#plot")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
@@ -184,19 +201,32 @@
             <div class="container">
                 <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
                 <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
+                <button type="button" class="btn btn-default" onclick="render()">Render Me</button>
                 <br/>
-                <select id="xaxis" class="form-control input-lg" onchange="updatePlot()">
-                    <option data-placeholder="true">x-axis:</option>
-                    <option value="radius">Radius</option>
-                    <option value="mass">Mass</option>
-                    <option value="period">Period</option>
-                </select>
-                <select id="yaxis" class="form-control input-lg" onchange="updatePlot()">
-                    <option data-placeholder="true">y-axis:</option>
-                    <option value="radius">Radius</option>
-                    <option value="mass">Mass</option>
-                    <option value="period">Period</option>
-                </select>
+                <table>
+                    <tr>
+                        <td>x-axis</td>
+                        <td>
+                            <select id="xaxis" class="form-control input-lg" onchange="updatePlot()">
+                                <option data-placeholder="true">x-axis:</option>
+                                <option value="radius">Radius</option>
+                                <option value="mass">Mass</option>
+                                <option value="period">Period</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>y-axis</td>
+                        <td>
+                            <select id="yaxis" class="form-control input-lg" onchange="updatePlot()">
+                                <option data-placeholder="true">y-axis:</option>
+                                <option value="radius">Radius</option>
+                                <option value="mass">Mass</option>
+                                <option value="period">Period</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
             <div id="plot" class="container">This will be the test scatterplot</div>
