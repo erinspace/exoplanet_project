@@ -3383,6 +3383,28 @@ Credit: NASA/Ames/JPL-Caltech</imagedescription>
 	</star>
 </system>
 <system>
+	<name>ROXs 42 B</name>
+	<rightascension>16 31 15</rightascension>
+	<declination>-24 32 24</declination>
+	<distance>120</distance>
+	<star>
+		<name>ROXs 42 B</name>
+		<mass errorminus="0.08" errorplus="0.08">0.89</mass>
+		<temperature errorminus="70" errorplus="100">3850</temperature>
+		<spectraltype>M0</spectraltype>
+		<planet>
+			<name>ROXs 42 B b</name>
+			<list>Confirmed planets</list>
+			<mass errorminus="4" errorplus="4">10</mass>
+			<semimajoraxis errorminus="10" errorplus="10">140</semimajoraxis>
+			<description>The substellar object ROXs 42B b is orbiting the binary M star ROXs 42B. It is most likely a planet and was discovered in 2013 by Thayne Currie.</description>
+			<discoverymethod>imaging</discoverymethod>
+			<lastupdate>13/12/02</lastupdate>
+			<discoveryyear>2013</discoveryyear>
+		</planet>
+	</star>
+</system>
+<system>
 	<name>HD 50499</name>
 	<rightascension>06 52 02</rightascension>
 	<declination>-33 54 56</declination>
@@ -6391,6 +6413,28 @@ Credit: NASA/Ames/JPL-Caltech</imagedescription>
 			<spectraltype>M3.5V</spectraltype>
 		</star>
 	</binary>
+</system>
+<system>
+	<name>ROXs 12</name>
+	<rightascension>16 26 28</rightascension>
+	<declination>-25 27 24</declination>
+	<distance>120</distance>
+	<star>
+		<name>ROXs 12</name>
+		<mass errorminus="0.08" errorplus="0.08">0.87</mass>
+		<temperature errorminus="70" errorplus="100">3850</temperature>
+		<spectraltype>M0</spectraltype>
+		<planet>
+			<name>ROXs 12 b</name>
+			<list>Confirmed planets</list>
+			<mass errorminus="4" errorplus="4">16</mass>
+			<semimajoraxis errorminus="20" errorplus="20">210</semimajoraxis>
+			<description>ROXs 12 b is a wide separation planetary mass companion to the star ROXs 12. The object was discovered over 10 years ago in a binary survey program, but follow-up observations only confirmed its planetary nature in 2013.</description>
+			<discoverymethod>imaging</discoverymethod>
+			<lastupdate>13/12/02</lastupdate>
+			<discoveryyear>2013</discoveryyear>
+		</planet>
+	</star>
 </system>
 <system>
 	<name>Gliese 328</name>
@@ -14238,6 +14282,28 @@ Credit: ESO/J. Rameau</imagedescription>
 		</planet>
 		<name>Kepler-18</name>
 		<temperature>5383.0</temperature>
+	</star>
+</system>
+<system>
+	<name>FW Tau</name>
+	<rightascension>04 29 30</rightascension>
+	<declination>+26 16 53</declination>
+	<distance>145</distance>
+	<star>
+		<name>FW Tau</name>
+		<mass errorminus="0.05" errorplus="0.05">0.28</mass>
+		<temperature errorminus="70" errorplus="70">3270</temperature>
+		<spectraltype>M4</spectraltype>
+		<planet>
+			<name>FW Tau b</name>
+			<list>Confirmed planets</list>
+			<mass errorminus="4" errorplus="4">10</mass>
+			<semimajoraxis errorminus="30" errorplus="30">330</semimajoraxis>
+			<description>DW Tau b is a wide separation planetary mass companion to the star DW Tau. The object was discovered over 10 years ago in a binary survey program, but follow-up observations only confirmed its planetary nature in 2013.</description>
+			<discoverymethod>imaging</discoverymethod>
+			<lastupdate>13/12/02</lastupdate>
+			<discoveryyear>2013</discoveryyear>
+		</planet>
 	</star>
 </system>
 <system>
@@ -29042,7 +29108,9 @@ Credit: Joe Gallagher</imagedescription>
 			<lastupdate>13/03/07</lastupdate>
 			<discoveryyear>2013</discoveryyear>
 			<image>OGLE-2011-BLG-0251</image>
-			<imagedescription>This plot shows the light curve of the OGLE-2011-BLG-0251 microlensing event. The main magnification is due to the host star, only the tiny perturbation near the peak is the signal caused by the planet. Credit: Kains et al (2013).</imagedescription>
+			<imagedescription>This plot shows the light curve of the OGLE-2011-BLG-0251 microlensing event. The main magnification is due to the host star, only the tiny perturbation near the peak is the signal caused by the planet.
+			
+Credit: Kains et al (2013).</imagedescription>
 		</planet>
 	</star>
 </system>

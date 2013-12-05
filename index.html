@@ -22,6 +22,7 @@
             // load the XML and set up the data object
             var source = "systems.xml";
             var data = [];
+            var data_nonzero = [];
 
             // extracting objects from the XML
             d3.xml(source, "text/xml", function(xml) {
@@ -51,6 +52,20 @@
 
                             data.push(planet);
                         }
+
+                        if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
+                            planet.name = name.text();
+                            planet.mass = mass.text();
+                            planet.radius = radius.text();
+                            planet.period = period.text();
+                            planet.semimajoraxis = semimajoraxis.text();
+                            planet.discoverymethod = discoverymethod.text();
+                            planet.discoveryyear = discoveryyear.text();
+
+                            if(planet.mass != "0" && planet.radius != "0") {
+                                data_nonzero.push(planet);
+                            }
+                        }
                     }
                 );
             });
@@ -64,9 +79,24 @@
             var point_radius = "radius";
             var point_color = "discoveryyear";
 
+             // set up the scatterplot variables
+            var margin = {top: 20, right: 20, bottom: 30, left: 40},
+                width = 600 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+            // create svg element
+                // var svg = d3.select("#plot")
+                //     .append("svg")
+                //     .attr("width", width + margin.left + margin.right)
+                //     .attr("height", height + margin.top + margin.bottom)
+                //     .append("g")
+                //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
             // function to update the test bar graph
             var updateGraph = function() {
                 console.log(data);
+                console.log(data_nonzero);
                 console.log(display);
                 console.log(xkey);
                 console.log(ykey);
@@ -87,11 +117,7 @@
 
             var updatePlot = function() {
 
-                // set up the scatterplot
-                var margin = {top: 20, right: 20, bottom: 30, left: 40},
-                    width = 600 - margin.left - margin.right,
-                    height = 500 - margin.top - margin.bottom;
-
+               
                 var x = d3.scale.log()
                         .range([0, width]);
 
@@ -108,11 +134,12 @@
                             .scale(y)
                             .orient("left");
 
-                var svg = d3.select("#plot").append("svg")
-                        .attr("width", width + margin.left + margin.right)
-                        .attr("height", height + margin.top + margin.bottom)
+                var svg = d3.select("#plot")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
                     .append("g")
-                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
                 y.domain(d3.extent(data, function(d) { return d[ykey]; })).nice();
@@ -140,7 +167,7 @@
                     .text(ykey);
 
                 svg.selectAll(".dot")
-                    .data(data)
+                    .data(data_nonzero)
                 .enter().append("circle")
                     .attr("class", "dot")
                     .attr("r", function(d) { return d[point_radius] * 3 ; })
@@ -158,20 +185,24 @@
                 <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
                 <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
                 <br/>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Choose Display <span class="caret"></span></button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li onclick="changeDisplay()"><a href="#">Radius</a></li>
-                        <li><a href="#">Mass</a></li>
-                        <li><a href="#">Period</a></li>
-                    </ul>
-                </div>
+                <select id="xaxis" class="form-control input-lg" onchange="updatePlot()">
+                    <option data-placeholder="true">x-axis:</option>
+                    <option value="radius">Radius</option>
+                    <option value="mass">Mass</option>
+                    <option value="period">Period</option>
+                </select>
+                <select id="yaxis" class="form-control input-lg" onchange="updatePlot()">
+                    <option data-placeholder="true">y-axis:</option>
+                    <option value="radius">Radius</option>
+                    <option value="mass">Mass</option>
+                    <option value="period">Period</option>
+                </select>
             </div>
 
             <div id="plot" class="container">This will be the test scatterplot</div>
             <div id="graph" class="container">This will be the test bar chart</div>
 
-            <div id="name">&nbsp;</div>
+            <!-- <div id="name">&nbsp;</div> -->
 
 	</body>
 
