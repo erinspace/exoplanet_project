@@ -88,7 +88,6 @@
                 );
             });
 
-
             //set the standard display parameter
             var display = 'mass';
 
@@ -205,6 +204,9 @@
 
                 // get rid of the old legend - does not work right now
                 svg.selectAll(".legend").remove();
+
+                //Exit rectangles - ok now this got rid of the legend altogether
+                legend.exit().remove();
 
                 // create a color legend
                 var legend = svg.selectAll(".legend")
