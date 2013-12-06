@@ -40,7 +40,6 @@
             // load the XML and set up the data object
             var source = "systems.xml";
             var data = [];
-            var data_nonzero = [];
 
             // extracting objects from the XML
             d3.xml(source, "text/xml", function(xml) {
@@ -62,9 +61,9 @@
                         // and add it to the data object if it does
                         if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0]) {
                             planet.name = name.text();
-                            planet.mass = mass.text();
-                            planet.radius = radius.text();
-                            planet.period = period.text();
+                            planet.mass = parseFloat(mass.text());
+                            planet.radius = parseFloat(radius.text());
+                            planet.period = parseFloat(period.text());
                             planet.semimajoraxis = semimajoraxis.text();
 
                             if(!discoverymethod[0][0]) {
@@ -74,7 +73,8 @@
                                 planet.discoverymethod = discoverymethod.text();
                             }
 
-                            if(discoveryyear[0][0] < 1990 || !discoveryyear[0][0]) {
+                            // fudge the discovery years to make the graph better
+                            if(!discoveryyear[0][0] || discoveryyear.text() < 1990) {
                                 planet.discoveryyear = "2011";
                             }
                             else {
@@ -89,6 +89,8 @@
                             }
 
                             data.push(planet);
+
+                            parseInt
                         }
                     }
                 )
@@ -123,26 +125,6 @@
             var y_axis = d3.svg.axis()
                         .scale(y)
                         .orient("left");
-
-            // creates experimental transition maybe?
-
-
-            // function to update the test bar graph
-            var updateGraph = function() {
-                console.log(data);
-                console.log(data_nonzero);
-                console.log(display);
-                console.log(xkey);
-                console.log(ykey);
-
-                d3.select("#graph")
-                    .selectAll("div")
-                        .data(data)
-                    .enter().append("div")
-                        .style("width", function(d) { return d[display] * 100 + "px"; })
-                        .text(function(d) { return d[display]; });
-            }
-
 
             var updatePlot = function() {
 
