@@ -60,37 +60,41 @@
                         // check to see if the planet has all the properties we want
                         // and add it to the data object if it does
                         if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0]) {
-                            planet.name = name.text();
-                            planet.mass = parseFloat(mass.text());
-                            planet.radius = parseFloat(radius.text());
-                            planet.period = parseFloat(period.text());
-                            planet.semimajoraxis = semimajoraxis.text();
 
-                            if(!discoverymethod[0][0]) {
-                                planet.discoverymethod = "not recorded";
-                            }
-                            else {
-                                planet.discoverymethod = discoverymethod.text();
+                            if(mass.text() != "") {
+
+                                planet.name = name.text();
+                                planet.mass = parseFloat(mass.text());
+                                planet.radius = parseFloat(radius.text());
+                                planet.period = parseFloat(period.text());
+                                planet.semimajoraxis = semimajoraxis.text();
+
+
+                                if(!discoverymethod[0][0]) {
+                                    planet.discoverymethod = "not recorded";
+                                }
+                                else {
+                                    planet.discoverymethod = discoverymethod.text();
+                                }
+
+                                // fudge the discovery years to make the graph better
+                                if(!discoveryyear[0][0] || discoveryyear.text() < 1990) {
+                                    planet.discoveryyear = "2011";
+                                }
+                                else {
+                                    planet.discoveryyear = discoveryyear.text();
+                                }
+
+                                if(!description[0][0]) {
+                                    planet.description = "no information";
+                                }
+                                else {
+                                    planet.description = description.text();
+                                }
+
+                                data.push(planet);
                             }
 
-                            // fudge the discovery years to make the graph better
-                            if(!discoveryyear[0][0] || discoveryyear.text() < 1990) {
-                                planet.discoveryyear = "2011";
-                            }
-                            else {
-                                planet.discoveryyear = discoveryyear.text();
-                            }
-
-                            if(!description[0][0]) {
-                                planet.description = "no information";
-                            }
-                            else {
-                                planet.description = description.text();
-                            }
-
-                            data.push(planet);
-
-                            parseInt
                         }
                     }
                 )
@@ -138,7 +142,6 @@
             var updateScaleLinear_y = function() {
                 y = d3.scale.linear()
                     .range([height, 0]);
-
 
                 updatePlot();
             }
@@ -241,7 +244,7 @@
 
                 // add the legend colors to the svg object
                 legend.append("rect")
-                    .attr("x", width - 18)
+                    .attr("x", width + 100)
                     .attr("width", 18)
                     .attr("height", 18)
                     .style("fill", color);
