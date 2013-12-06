@@ -108,6 +108,9 @@
             var point_radius = "radius";
             var point_color = "discoveryyear";
 
+            var xunit = "[Days]"
+            var yunit = "[M Jupiter]"
+
              // set up the scatterplot variables
             var margin = {top: 20, right: 20, bottom: 30, left: 40},
                 width = 600 - margin.left - margin.right,
@@ -169,6 +172,20 @@
                 point_color = $(pointcolor).val();
                 point_radius = $(pointradius).val();
 
+                // set the units for the axes
+                if (xkey == "mass") {
+                    xunit = "[M Jupiter]";
+                }
+                else if (xkey == "radius") {
+                    xunit = "[R Jupiter]";
+                }
+                else if (xkey = "period") {
+                    xunit = "[Days]";
+                }
+                else if (xkey = "discoveryyear") {
+                    xunit = "Year";
+                }
+
                 // get rid of the old graph
                 d3.select("svg").remove();
 
@@ -196,7 +213,7 @@
                     .attr("x", width)
                     .attr("y", -6)
                     .style("text-anchor", "end")
-                    .text(xkey);
+                    .text(xkey + " " + xunit);
 
                 // y-axis
                 svg.append("g")
