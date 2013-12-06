@@ -118,6 +118,40 @@
 
             var color = d3.scale.category10();
 
+
+
+            var updateScaleLinear_x = function() {
+                x = d3.scale.linear()
+                    .range([0, width]);
+
+
+                updatePlot();
+            }
+
+            var updateScaleLog_x = function() {
+                x = d3.scale.log()
+                    .range([0, width]);
+
+                updatePlot();
+            }
+
+            var updateScaleLinear_y = function() {
+                y = d3.scale.linear()
+                    .range([height, 0]);
+
+
+                updatePlot();
+            }
+
+            var updateScaleLog_y = function() {
+                y = d3.scale.log()
+                    .range([height, 0]);
+
+                updatePlot();
+            }
+
+            var updatePlot = function() {
+
             var x_axis = d3.svg.axis()
                         .scale(x)
                         .orient("bottom");
@@ -126,9 +160,6 @@
                         .scale(y)
                         .orient("left");
 
-            var updatePlot = function() {
-
-                console.log(data);
 
                 // read the values from the axes select choices
                 xkey = $(xaxis).val();
@@ -264,15 +295,15 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr class="low">
+                                <tr>
                                     <td id="label">scale</td>
                                     <td>
                                         <label class="radio-inline">
-                                            <input type="radio" class="inline" value="linear" checked>
+                                            <input type="radio" name="optionsRadios" id="optionsrRadios1" onClick="updateScaleLinear_x()" checked>
                                             Linear
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" class="inline" value="log">
+                                            <input type="radio" name="optionsRadios" id="optionsrRadios2"  onClick="updateScaleLog_x()">
                                             Log
                                         </label>
                                     </td>
@@ -292,11 +323,11 @@
                                 <td id="label">scale</td>
                                     <td>
                                         <label class="radio-inline">
-                                            <input type="radio" class="inline" value="linear" checked>
+                                            <input type="radio" name="optionsRadios" id="optionsrRadios1" onClick="updateScaleLinear_y()" checked>
                                             Linear
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" class="inline" value="log">
+                                            <input type="radio" name="optionsRadios" id="optionsrRadios2" onClick="updateScaleLog_y()">
                                             Log
                                         </label>
                                     </td>
