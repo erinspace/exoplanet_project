@@ -5,19 +5,21 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF8">
 		<title>ErinSpace</title>
+        <link href="./img/favicon.ico" rel="icon" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css"/>
         <script type = "text/javascript" src="./js/d3.v3.js"></script>
         <script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.js"></script>
+        <!-- <script type="text/javascript" src="./js/scatterplot.js"></script> -->
 
         <!-- show the plot on load -->
-        <script type="text/javascript">
-            $( document ).ready(function() {
-                updatePlot();
-            });
-        </script>
+        // <script type="text/javascript">
+        //     $( document ).ready(function() {
+        //         updateParams();
+        //     });
+        // </script>
 
         <!-- Google analytics, cause why not -->
         <script>
@@ -33,224 +35,339 @@
 	</head>
 
 	<body>
+         <script>
+                // scatterplot.js
+// For Erin Braswell's Final CS50 Project: Expolring Exoplanets
+
+// data souce and where we'll store what we read
+var source = "../systems.xml";
+var data = [];
+
+var ykey = $(yaxis).val();
+var xkey = $(xaxis).val();
+var point_color = $(pointcolor).val();
+var point_radius = $(pointradius).val();
+
+var updateParams = function() {
+    ykey = $(yaxis).val();
+    xkey = $(xaxis).val();
+    point_color = $(pointcolor).val();
+    point_radius = $(pointradius).val();
+}
+
+
+
+// extracting items from the XML to an object
+d3.xml(source, "text/xml", function(xml) {
+    d3.select(xml).selectAll("planet").each(
+        function() {
+            var planet = {};
+
+            var name = d3.select(this).select("name");
+            var mass = d3.select(this).select("mass");
+            var radius = d3.select(this).select("radius");
+            var period = d3.select(this).select("period");
+            var semimajoraxis = d3.select(this).select("semimajoraxis");
+            var discoverymethod = d3.select(this).select("discoverymethod");
+            var discoveryyear = d3.select(this).select("discoveryyear");
+
+            // check to see if the planet has all the properties we want
+            // and add it to the data object if it does
+            if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] &&
+                discoverymethod[0][0] && discoveryyear[0][0]) {
+                planet.name = name.text();
+                planet.mass = mass.text();
+                planet.radius = radius.text();
+                planet.period = period.text();
+                planet.semimajoraxis = semimajoraxis.text();
+                planet.discoverymethod = discoverymethod.text();
+                planet.discoveryyear = discoveryyear.text();
+
+                data.push(planet);
+            }
+
+        }
+    );
+});
+
+ // set up the scatterplot variables
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 600 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+// define the scatterplot
+var svg = d3.select("#plot-test")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// set up information for the svg element
+var x = d3.scale.linear()
+        .range([0, width]);
+
+var y = d3.scale.linear()
+        .range([height, 0]);
+
+var color = d3.scale.category10();
+
+var x_axis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+var y_axis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+
+// set scales for both x and y
+x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
+y.domain(d3.extent(data, function(d) { return d[ykey]; })).nice();
+
+// draw the x axis
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(x_axis)
+.append("text")
+    .attr("class", "label")
+    .attr("x", width)
+    .attr("y", -6)
+    .style("text-anchor", "end")
+    .text(xkey);
+
+// draw the y axis
+svg.append("g")
+    .attr("class", "y axis")
+    .call(y_axis)
+.append("text")
+    .attr("class", "label")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text(ykey);
+
+// planet_data = JSON.parse(data);
+
+// add the cirlces
+svg.selectAll(".dot")
+    .data(data)
+    .enter().append("circle")
+    .attr("class", "dot")
+    .attr("cx", function(d) { return x(d[xkey]); })
+    .attr("cy", function(d) { return y(d[ykey]); })
+    .transition()
+    .duration(800)
+    .attr("r", function(d) { return d[point_radius] * 2 ; })
+    .style("fill", function(d) { return color(d[point_color]); })
+    .style("stroke", "black");
+
+</script>
+
 
         <script>
 
-            // load the XML and set up the data object
-            var source = "systems.xml";
-            var data = [];
-            var data_nonzero = [];
 
-            // extracting objects from the XML
-            d3.xml(source, "text/xml", function(xml) {
-                d3.select(xml).selectAll("planet").each(
-                    function() {
+        //     // load the XML and set up the data object
+        //     var source = "systems.xml";
+        //     var data = [];
+        //     var data_nonzero = [];
 
-                        var planet = {};
+        //     // extracting objects from the XML
+        //     d3.xml(source, "text/xml", function(xml) {
+        //         d3.select(xml).selectAll("planet").each(
+        //             function() {
 
-                        var name = d3.select(this).select("name");
-                        var mass = d3.select(this).select("mass");
-                        var radius = d3.select(this).select("radius");
-                        var period = d3.select(this).select("period");
-                        var semimajoraxis = d3.select(this).select("semimajoraxis");
-                        var discoverymethod = d3.select(this).select("discoverymethod");
-                        var discoveryyear = d3.select(this).select("discoveryyear");
+        //                 var planet = {};
 
-                        // check to see if the planet has all the properties we want
-                        // and add it to the data object if it does
-                        if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
-                            planet.name = name.text();
-                            planet.mass = mass.text();
-                            planet.radius = radius.text();
-                            planet.period = period.text();
-                            planet.semimajoraxis = semimajoraxis.text();
-                            planet.discoverymethod = discoverymethod.text();
-                            planet.discoveryyear = discoveryyear.text();
+        //                 var name = d3.select(this).select("name");
+        //                 var mass = d3.select(this).select("mass");
+        //                 var radius = d3.select(this).select("radius");
+        //                 var period = d3.select(this).select("period");
+        //                 var semimajoraxis = d3.select(this).select("semimajoraxis");
+        //                 var discoverymethod = d3.select(this).select("discoverymethod");
+        //                 var discoveryyear = d3.select(this).select("discoveryyear");
 
-                            data.push(planet);
-                        }
+        //                 // check to see if the planet has all the properties we want
+        //                 // and add it to the data object if it does
+        //                 if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
+        //                     planet.name = name.text();
+        //                     planet.mass = mass.text();
+        //                     planet.radius = radius.text();
+        //                     planet.period = period.text();
+        //                     planet.semimajoraxis = semimajoraxis.text();
+        //                     planet.discoverymethod = discoverymethod.text();
+        //                     planet.discoveryyear = discoveryyear.text();
 
-                        // trying a solution to the log problem, this dosen't work though!
-                        if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
-                            planet.name = name.text();
-                            planet.mass = mass.text();
-                            planet.radius = radius.text();
-                            planet.period = period.text();
-                            planet.semimajoraxis = semimajoraxis.text();
-                            planet.discoverymethod = discoverymethod.text();
-                            planet.discoveryyear = discoveryyear.text();
+        //                     data.push(planet);
+        //                 }
 
-                            if(planet.mass != "0" && planet.radius != "0") {
-                                data_nonzero.push(planet);
-                            }
-                        }
-                    }
-                );
-            });
+        //                 // trying a solution to the log problem, this dosen't work though!
+        //                 if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
+        //                     planet.name = name.text();
+        //                     planet.mass = mass.text();
+        //                     planet.radius = radius.text();
+        //                     planet.period = period.text();
+        //                     planet.semimajoraxis = semimajoraxis.text();
+        //                     planet.discoverymethod = discoverymethod.text();
+        //                     planet.discoveryyear = discoveryyear.text();
 
-            //set the standard display parameter
-            var display = 'mass';
+        //                     if(planet.mass != "0" && planet.radius != "0") {
+        //                         data_nonzero.push(planet);
+        //                     }
+        //                 }
+        //             }
+        //         );
+        //     });
 
-            var xkey = "period";
-            var ykey = "mass";
-            var point_radius = "radius";
-            var point_color = "discoveryyear";
+        //     //set the standard display parameter
+        //     var display = 'mass';
 
-             // set up the scatterplot variables
-            var margin = {top: 20, right: 20, bottom: 30, left: 40},
-                width = 600 - margin.left - margin.right,
-                height = 600 - margin.top - margin.bottom;
+        //     var xkey = "period";
+        //     var ykey = "mass";
+        //     var point_radius = "radius";
+        //     var point_color = "discoveryyear";
 
-            // set up information for the svg element
-            var x = d3.scale.linear()
-                    .range([0, width]);
+        //      // set up the scatterplot variables
+        //     var margin = {top: 20, right: 20, bottom: 30, left: 40},
+        //         width = 600 - margin.left - margin.right,
+        //         height = 600 - margin.top - margin.bottom;
 
-            var y = d3.scale.linear()
-                    .range([height, 0]);
+        //     // set up information for the svg element
+        //     var x = d3.scale.linear()
+        //             .range([0, width]);
 
-            var color = d3.scale.category10();
+        //     var y = d3.scale.linear()
+        //             .range([height, 0]);
 
-            var x_axis = d3.svg.axis()
-                        .scale(x)
-                        .orient("bottom");
+        //     var color = d3.scale.category10();
 
-            var y_axis = d3.svg.axis()
-                        .scale(y)
-                        .orient("left");
+        //     var x_axis = d3.svg.axis()
+        //                 .scale(x)
+        //                 .orient("bottom");
 
-            // creates experimental transition maybe?
-
-
-            // function to update the test bar graph
-            var updateGraph = function() {
-                console.log(data);
-                console.log(data_nonzero);
-                console.log(display);
-                console.log(xkey);
-                console.log(ykey);
-
-                d3.select("#graph")
-                    .selectAll("div")
-                        .data(data)
-                    .enter().append("div")
-                        .style("width", function(d) { return d[display] * 100 + "px"; })
-                        .text(function(d) { return d[display]; });
-            }
+        //     var y_axis = d3.svg.axis()
+        //                 .scale(y)
+        //                 .orient("left");
 
 
-            var updatePlot = function() {
+        //     var updatePlot = function() {
 
-                // read the values from the axes select choices
-                xkey = $(xaxis).val();
-                ykey = $(yaxis).val();
-                point_color = $(pointcolor).val();
-                point_radius = $(pointradius).val();
+        //         // read the values from the axes select choices
+        //         xkey = $(xaxis).val();
+        //         ykey = $(yaxis).val();
+        //         point_color = $(pointcolor).val();
+        //         point_radius = $(pointradius).val();
 
-                // get rid of the old graph
-                d3.select("svg").remove();
+        //         // get rid of the old graph
+        //         d3.select("svg").remove();
 
-                // create a new svg element
-                // made this global -- fix later?!?!
-                svg = d3.select("#plot")
-                    .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        //         // create a new svg element
+        //         // made this global -- fix later?!?!
+        //         svg = d3.select("#plot")
+        //             .append("svg")
+        //             .attr("width", width + margin.left + margin.right)
+        //             .attr("height", height + margin.top + margin.bottom)
+        //             .append("g")
+        //             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                // set domains for both x and y
-                x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
-                y.domain(d3.extent(data, function(d) { return d[ykey]; })).nice();
+        //         // set domains for both x and y
+        //         x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
+        //         y.domain(d3.extent(data, function(d) { return d[ykey]; })).nice();
 
-                // adds different 'g' elements to the svg plot
-                // x axis
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(x_axis)
-                .append("text")
-                    .attr("class", "label")
-                    .attr("x", width)
-                    .attr("y", -6)
-                    .style("text-anchor", "end")
-                    .text(xkey);
+        //         // adds different 'g' elements to the svg plot
+        //         // x axis
+        //         svg.append("g")
+        //             .attr("class", "x axis")
+        //             .attr("transform", "translate(0," + height + ")")
+        //             .call(x_axis)
+        //         .append("text")
+        //             .attr("class", "label")
+        //             .attr("x", width)
+        //             .attr("y", -6)
+        //             .style("text-anchor", "end")
+        //             .text(xkey);
 
-                // y-axis
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(y_axis)
-                .append("text")
-                    .attr("class", "label")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 6)
-                    .attr("dy", ".71em")
-                    .style("text-anchor", "end")
-                    .text(ykey);
+        //         // y-axis
+        //         svg.append("g")
+        //             .attr("class", "y axis")
+        //             .call(y_axis)
+        //         .append("text")
+        //             .attr("class", "label")
+        //             .attr("transform", "rotate(-90)")
+        //             .attr("y", 6)
+        //             .attr("dy", ".71em")
+        //             .style("text-anchor", "end")
+        //             .text(ykey);
 
-                // add the circles to the graph
-                svg.selectAll(".dot")
-                    .data(data)
-                .enter().append("circle")
-                    .attr("class", "dot")
-                    .attr("r", function(d) { return d[point_radius] * 3 ; })
-                    .attr("cx", function(d) { return x(d[xkey]); })
-                    .attr("cy", function(d) { return y(d[ykey]); })
-                    .style("fill", function(d) { return color(d[point_color]); })
-                    .style("stroke", "black");
+        //         // add the circles to the graph
+        //         svg.selectAll(".dot")
+        //             .data(data)
+        //         .enter().append("circle")
+        //             .attr("class", "dot")
+        //             .attr("cx", function(d) { return x(d[xkey]); })
+        //             .attr("cy", function(d) { return y(d[ykey]); })
+        //             .transition()
+        //             .duration(500)
+        //             .attr("r", function(d) { return d[point_radius] * 3 ; })
+        //             .style("fill", function(d) { return color(d[point_color]); })
+        //             .style("stroke", "black");
 
-                // d3.select("input").on("change", change);
-                change();
+        //         // d3.select("input").on("change", change);
+        //         change();
 
-                // get rid of the old legend - does not work right now
-                svg.selectAll(".legend").remove();
+        //         // get rid of the old legend - does not work right now
+        //         svg.selectAll(".legend").remove();
 
-                //Exit rectangles - ok now this got rid of the legend altogether
-                // legend.exit().remove();
+        //         //Exit rectangles - ok now this got rid of the legend altogether
+        //         // legend.exit().remove();
 
-                // create a color legend
-                var legend = svg.selectAll(".legend")
-                    .data(color.domain())
-                .enter().append("g")
-                    .attr("class", "legend")
-                    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+        //         // create a color legend
+        //         var legend = svg.selectAll(".legend")
+        //             .data(color.domain())
+        //         .enter().append("g")
+        //             .attr("class", "legend")
+        //             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-                // add the legend colors to the svg object
-                legend.append("rect")
-                    .attr("x", width - 18)
-                    .attr("width", 18)
-                    .attr("height", 18)
-                    .style("fill", color);
+        //         // add the legend colors to the svg object
+        //         legend.append("rect")
+        //             .attr("x", width - 18)
+        //             .attr("width", 18)
+        //             .attr("height", 18)
+        //             .style("fill", color);
 
-                // add text to the legend
-                legend.append("text")
-                    .attr("x", width - 24)
-                    .attr("y", 9)
-                    .attr("dy", ".35em")
-                    .style("text-anchor", "end")
-                    .text(function(d) { return d; });
-            };
+        //         // add text to the legend
+        //         legend.append("text")
+        //             .attr("x", width - 24)
+        //             .attr("y", 9)
+        //             .attr("dy", ".35em")
+        //             .style("text-anchor", "end")
+        //             .text(function(d) { return d; });
+        //     };
 
-            // this... does nothing.
-            function change() {
+        //     // this... does nothing.
+        //     function change() {
 
-                var x0 = x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
+        //         var x0 = x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
 
-                var transition = svg.transition().duration(750),
-                    delay = function(d, i) { return i * 50; };
+        //         var transition = svg.transition().duration(750),
+        //             delay = function(d, i) { return i * 50; };
 
-                transition.selectAll(".dot")
-                        .delay(delay)
-                        .attr("x", function(d) { return x0(d[xkey]); });
+        //         transition.selectAll(".dot")
+        //                 .delay(delay)
+        //                 .attr("x", function(d) { return x0(d[xkey]); });
 
-                transition.select("x.axis")
-                        .call(x_axis)
-                    .selectAll("g")
-                        .delay(delay);
+        //         transition.select("x.axis")
+        //                 .call(x_axis)
+        //             .selectAll("g")
+        //                 .delay(delay);
 
-            }
+        //     }
 
 
-        </script>
+        // </script>
+
 
             <div class="container">
 
@@ -258,14 +375,13 @@
                     <h1>Exoplanets</h1>
                     <div class="row-fluid">
                         <div class="span3">
-                            <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
-                            <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
+                            <button type="button" class="btn btn-default" onclick="updateParams()">Plot Me</button>
                             <br/>
                             <table>
                                 <tr>
                                     <td>x-axis</td>
                                     <td>
-                                        <select id="xaxis" class="form-control" onchange="updatePlot()">
+                                        <select id="xaxis" class="form-control" onchange="updateParams()">
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
                                             <option value="period">Period</option>
@@ -275,7 +391,7 @@
                                 <tr>
                                     <td>y-axis</td>
                                     <td>
-                                        <select id="yaxis" class="form-control" onchange="updatePlot()">
+                                        <select id="yaxis" class="form-control" onchange="updateParams()">
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
                                             <option value="period">Period</option>
@@ -285,7 +401,7 @@
                                 <tr>
                                     <td>size</td>
                                     <td>
-                                        <select id="pointradius" class="form-control" onchange="updatePlot()">
+                                        <select id="pointradius" class="form-control" onchange="updateParams()">
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
                                             <option value="period">Period</option>
@@ -295,7 +411,7 @@
                                  <tr>
                                     <td>color</td>
                                     <td>
-                                        <select id="pointcolor" class="form-control" onchange="updatePlot()">
+                                        <select id="pointcolor" class="form-control" onchange="updateParams()">
                                             <option value="discoveryyear">discovery year</option>
                                             <option value="discoverymethod">discovery method</option>
                                         </select>
@@ -304,12 +420,15 @@
                             </table>
                         </div>
                         <div class="span9">
-                            <div id="plot"></div>
-                            <div id="graph">This will be the test bar chart</div>
+                            <div id="plot-test">The new scatterplot will go here</div>
+                            <div id="plot">old scatter plot</div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
 
 	</body>
 
