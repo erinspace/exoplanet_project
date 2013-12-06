@@ -110,7 +110,7 @@
             var yunit = "[M Jupiter]"
 
              // set up the scatterplot variables
-            var margin = {top: 20, right: 20, bottom: 30, left: 40},
+            var margin = {top: 20, right: 75, bottom: 30, left: 50},
                 width = 600 - margin.left - margin.right,
                 height = 600 - margin.top - margin.bottom;
 
@@ -272,24 +272,26 @@
 
                 // add the legend colors to the svg object
                 legend.append("rect")
-                    .attr("x", width - 18 )
-                    .attr("width", 40)
+                    .attr("x", width + 18 )
+                    .attr("width", 18)
                     .attr("height", 18)
                     .style("fill", color);
 
                 // add text to the legend
                 legend.append("text")
-                    .attr("x", width + 20)
+                    .attr("x", width + 75)
                     .attr("y", 9)
                     .attr("dy", ".35em")
                     .style("text-anchor", "end")
                     .text(function(d) { return d; });
 
-                // add the tooltips
+                // add the planet info box at the bottom
                 var div = d3.select("#plot").append("div")
                             .attr("class", "tooltip")
                             .style("opacity", 0);
             };
+
+
 
 
         </script>
