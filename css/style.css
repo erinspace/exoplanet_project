@@ -8,11 +8,17 @@ body{
   /*background: linear-gradient(silver, black);*/
 }
 
-#graph div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
+
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 500px;
+    height: 28px;
+    padding: 2px;
+    font: 16px sans-serif;
+    /*background: #A0A0A0;*/
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }

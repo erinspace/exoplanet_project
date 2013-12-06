@@ -56,37 +56,42 @@
                         var semimajoraxis = d3.select(this).select("semimajoraxis");
                         var discoverymethod = d3.select(this).select("discoverymethod");
                         var discoveryyear = d3.select(this).select("discoveryyear");
+                        var description =d3.select(this).select("description");
 
                         // check to see if the planet has all the properties we want
                         // and add it to the data object if it does
-                        if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
+                        if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0]) {
                             planet.name = name.text();
                             planet.mass = mass.text();
                             planet.radius = radius.text();
                             planet.period = period.text();
                             planet.semimajoraxis = semimajoraxis.text();
-                            planet.discoverymethod = discoverymethod.text();
-                            planet.discoveryyear = discoveryyear.text();
+
+                            if(!discoverymethod[0][0]) {
+                                planet.discoverymethod = "not recorded";
+                            }
+                            else {
+                                planet.discoverymethod = discoverymethod.text();
+                            }
+
+                            if(discoveryyear[0][0] < 1990 || !discoveryyear[0][0]) {
+                                planet.discoveryyear = "2011";
+                            }
+                            else {
+                                planet.discoveryyear = discoveryyear.text();
+                            }
+
+                            if(!description[0][0]) {
+                                planet.description = "no information";
+                            }
+                            else {
+                                planet.description = description.text();
+                            }
 
                             data.push(planet);
                         }
-
-                        // trying a solution to the log problem, this dosen't work though!
-                        if(name[0][0] && mass[0][0] && radius[0][0] && period[0][0] && semimajoraxis[0][0] && discoverymethod[0][0] && discoveryyear[0][0]) {
-                            planet.name = name.text();
-                            planet.mass = mass.text();
-                            planet.radius = radius.text();
-                            planet.period = period.text();
-                            planet.semimajoraxis = semimajoraxis.text();
-                            planet.discoverymethod = discoverymethod.text();
-                            planet.discoveryyear = discoveryyear.text();
-
-                            if(planet.mass != "0" && planet.radius != "0") {
-                                data_nonzero.push(planet);
-                            }
-                        }
                     }
-                );
+                )
             });
 
             //set the standard display parameter
@@ -141,6 +146,8 @@
 
             var updatePlot = function() {
 
+                console.log(data);
+
                 // read the values from the axes select choices
                 xkey = $(xaxis).val();
                 ykey = $(yaxis).val();
@@ -193,13 +200,22 @@
                     .data(data)
                 .enter().append("circle")
                     .attr("class", "dot")
-                    .transition()
-                    .duration(500)
                     .attr("r", function(d) { return d[point_radius] * 3 ; })
                     .attr("cx", function(d) { return x(d[xkey]); })
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); })
-                    .style("stroke", "black");
+                    .style("stroke", "black")
+                    .on("mouseover", function(d) {
+                        div.transition()
+                            .duration(200)
+                            .style("opacity", 0.9);
+                        div .html("name: " + d.name + "<br>" + d.description)
+                    })
+                    .on("mouseout", function(d) {
+                        div.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    });
 
                 // get rid of the old legend - does not work right now
                 svg.selectAll(".legend").remove();
@@ -228,6 +244,11 @@
                     .attr("dy", ".35em")
                     .style("text-anchor", "end")
                     .text(function(d) { return d; });
+
+                // add the tooltips hopefully
+                var div = d3.select("#plot").append("div")
+                            .attr("class", "tooltip")
+                            .style("opacity", 0);
             };
 
 
@@ -238,9 +259,9 @@
                     <div class="row-fluid">
                         <div class="span3">
 
-                            <img id="star" src="http://goo.gl/dEEssP">
+                            <img id="star" src="./img/sun.png">
                             <div id='planet1-orbit'>
-                                <img id="planet1" src="http://www.clipartlord.com/wp-content/uploads/2013/07/earth9.png">
+                                <img id="planet1" src="./img/planet.png">
                             </div>
 
                             <br/>
@@ -261,6 +282,7 @@
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
                                             <option value="period">Period</option>
+                                            <option value="discoveryyear">Discovery Year</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -280,7 +302,7 @@
                                         <select id="pointradius" class="form-control" onchange="updatePlot()">
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
-                                            <option value="period">Period</option>
+
                                         </select>
                                     </td>
                                 </tr>
