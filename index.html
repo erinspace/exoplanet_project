@@ -110,10 +110,10 @@
                 height = 600 - margin.top - margin.bottom;
 
             // set up information for the svg element
-            var x = d3.scale.linear()
+            var x = d3.scale.log()
                     .range([0, width]);
 
-            var y = d3.scale.linear()
+            var y = d3.scale.log()
                     .range([height, 0]);
 
             var color = d3.scale.category10();
@@ -187,6 +187,7 @@
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); })
                     .style("stroke", "black")
+                    .style("opacity", 0.9)
                     .on("mouseover", function(d) {
                         div.transition()
                             .duration(200)
