@@ -12,6 +12,14 @@ body{
 padding-right: 20px;
 }
 
+.heading {
+margin-bottom: 5px;
+}
+
+.title {
+margin-top: 5px;
+}
+
 .low {
     padding-bottom: 10px;
 }

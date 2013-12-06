@@ -86,7 +86,7 @@
                                 }
 
                                 if(!description[0][0]) {
-                                    planet.description = "no information";
+                                    planet.description = "The database dosen't have a description for this planet at the moment. Check back later!";
                                 }
                                 else {
                                     planet.description = description.text();
@@ -226,7 +226,7 @@
                         div.transition()
                             .duration(200)
                             .style("opacity", 0.9);
-                        div .html("name: " + d.name + "<br/>" + d.description)
+                        div .html("<b>" + d.name + "</b> <br/><div align=\"justify\">" + d.description + "</div>")
                     })
                     .on("mouseout", function(d) {
                         div.transition()
@@ -244,20 +244,20 @@
 
                 // add the legend colors to the svg object
                 legend.append("rect")
-                    .attr("x", width + 100)
-                    .attr("width", 18)
+                    .attr("x", width - 18 )
+                    .attr("width", 40)
                     .attr("height", 18)
                     .style("fill", color);
 
                 // add text to the legend
                 legend.append("text")
-                    .attr("x", width - 24)
+                    .attr("x", width + 20)
                     .attr("y", 9)
                     .attr("dy", ".35em")
                     .style("text-anchor", "end")
                     .text(function(d) { return d; });
 
-                // add the tooltips hopefully
+                // add the tooltips
                 var div = d3.select("#plot").append("div")
                             .attr("class", "tooltip")
                             .style("opacity", 0);
@@ -281,8 +281,9 @@
                             <br/>
                             <br/>
                             <br/>
-
-                            <h1>Exoplanets</h1>
+                            <p class="heading">Exploring</p>
+                            <h1 class="title">Exoplanets</h1>
+                            <p>Use these controls to explore exoplanet data correlations</p>
 
                             <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
                             <br/>
@@ -316,8 +317,8 @@
                                     <td>y-axis</td>
                                     <td>
                                         <select id="yaxis" class="form-control" onchange="updatePlot()">
-                                            <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
+                                            <option value="radius">Radius</option>
                                             <option value="period">Period</option>
                                         </select>
                                     </td>
