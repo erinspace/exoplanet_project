@@ -1,0 +1,49 @@
+#star {
+    position: fixed;
+    top: 10%;
+    left: 8%;
+    border-color: orange;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+    box-shadow: 0 0 64px yellow;
+
+    height: 20px;
+    width: 20px;
+}
+
+#planet1 {
+    position: inherit;
+    top: 20%;
+    left: 20%;
+
+    height: 5px;
+    width: 5px;
+}
+
+
+#planet1-orbit {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+
+    width: 100px;
+    height: 100px;
+
+    -webkit-animation: spin-right 20s linear infinite;
+    -moz-animation: spin-right 20s linear infinite;
+    animation: spin-right 20s linear infinite;
+}
+
+
+@-webkit-keyframes spin-right {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spin-right {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}

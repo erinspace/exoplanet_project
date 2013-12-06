@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/planet_animation.css"/>
         <script type = "text/javascript" src="./js/d3.v3.js"></script>
         <script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.js"></script>
@@ -192,14 +193,13 @@
                     .data(data)
                 .enter().append("circle")
                     .attr("class", "dot")
+                    .transition()
+                    .duration(500)
                     .attr("r", function(d) { return d[point_radius] * 3 ; })
                     .attr("cx", function(d) { return x(d[xkey]); })
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); })
                     .style("stroke", "black");
-
-                // d3.select("input").on("change", change);
-                change();
 
                 // get rid of the old legend - does not work right now
                 svg.selectAll(".legend").remove();
@@ -230,35 +230,27 @@
                     .text(function(d) { return d; });
             };
 
-            // this... does nothing.
-            function change() {
-
-                var x0 = x.domain(d3.extent(data, function(d) { return d[xkey]; })).nice();
-
-                var transition = svg.transition().duration(750),
-                    delay = function(d, i) { return i * 50; };
-
-                transition.selectAll(".dot")
-                        .delay(delay)
-                        .attr("x", function(d) { return x0(d[xkey]); });
-
-                transition.select("x.axis")
-                        .call(x_axis)
-                    .selectAll("g")
-                        .delay(delay);
-
-            }
-
 
         </script>
 
             <div class="container">
-
                 <div class="container-fluid">
-                    <h1>Exoplanets</h1>
                     <div class="row-fluid">
                         <div class="span3">
-                            <button type="button" class="btn btn-default" onclick="updateGraph()">Graph Me</button>
+
+                            <img id="star" src="http://goo.gl/dEEssP">
+                            <div id='planet1-orbit'>
+                                <img id="planet1" src="http://www.clipartlord.com/wp-content/uploads/2013/07/earth9.png">
+                            </div>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+                            <h1>Exoplanets</h1>
+
                             <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
                             <br/>
                             <table>
@@ -305,7 +297,6 @@
                         </div>
                         <div class="span9">
                             <div id="plot"></div>
-                            <div id="graph">This will be the test bar chart</div>
                         </div>
                     </div>
                 </div>
