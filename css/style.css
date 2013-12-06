@@ -8,7 +8,18 @@ body{
   /*background: linear-gradient(silver, black);*/
 }
 
+#label {
+padding-right: 20px;
+}
 
+.low {
+    padding-bottom: 10px;
+}
+
+td{
+   padding: 0px 0px;
+   position:relative;
+}
 
 div.tooltip {
     position: absolute;

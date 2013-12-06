@@ -187,12 +187,12 @@
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); })
                     .style("stroke", "black")
-                    .style("opacity", 0.9)
+                    .style("opacity", 0.7)
                     .on("mouseover", function(d) {
                         div.transition()
                             .duration(200)
                             .style("opacity", 0.9);
-                        div .html("name: " + d.name + "<br>" + d.description)
+                        div .html("name: " + d.name + "<br/>" + d.description)
                     })
                     .on("mouseout", function(d) {
                         div.transition()
@@ -200,11 +200,6 @@
                             .style("opacity", 0);
                     });
 
-                // get rid of the old legend - does not work right now
-                svg.selectAll(".legend").remove();
-
-                //Exit rectangles - ok now this got rid of the legend altogether
-                // legend.exit().remove();
 
                 // create a color legend
                 var legend = svg.selectAll(".legend")
@@ -269,6 +264,20 @@
                                         </select>
                                     </td>
                                 </tr>
+                                <tr class="low">
+                                    <td id="label">scale</td>
+                                    <td>
+                                        <label class="radio-inline">
+                                            <input type="radio" class="inline" value="linear" checked>
+                                            Linear
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" class="inline" value="log">
+                                            Log
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr><td> _ </td></tr>
                                 <tr>
                                     <td>y-axis</td>
                                     <td>
@@ -280,6 +289,21 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                <td id="label">scale</td>
+                                    <td>
+                                        <label class="radio-inline">
+                                            <input type="radio" class="inline" value="linear" checked>
+                                            Linear
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" class="inline" value="log">
+                                            Log
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr><td> _ </td></tr>
+                                <tr>
+                                    <br/>
                                     <td>size</td>
                                     <td>
                                         <select id="pointradius" class="form-control" onchange="updatePlot()">
