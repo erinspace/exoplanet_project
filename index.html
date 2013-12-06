@@ -114,20 +114,19 @@
                 height = 600 - margin.top - margin.bottom;
 
             // set up information for the svg element
-            var x = d3.scale.log()
+            var x = d3.scale.linear()
                     .range([0, width]);
 
-            var y = d3.scale.log()
+            var y = d3.scale.linear()
                     .range([height, 0]);
 
             var color = d3.scale.category10();
 
 
-
+            // functions for updating the scale
             var updateScaleLinear_x = function() {
                 x = d3.scale.linear()
                     .range([0, width]);
-
 
                 updatePlot();
             }
@@ -153,16 +152,16 @@
                 updatePlot();
             }
 
+            // update the entire plot
             var updatePlot = function() {
 
-            var x_axis = d3.svg.axis()
-                        .scale(x)
-                        .orient("bottom");
+                var x_axis = d3.svg.axis()
+                            .scale(x)
+                            .orient("bottom");
 
-            var y_axis = d3.svg.axis()
-                        .scale(y)
-                        .orient("left");
-
+                var y_axis = d3.svg.axis()
+                            .scale(y)
+                            .orient("left");
 
                 // read the values from the axes select choices
                 xkey = $(xaxis).val();
@@ -283,7 +282,9 @@
                             <br/>
                             <p class="heading">Exploring</p>
                             <h1 class="title">Exoplanets</h1>
-                            <p>Use these controls to explore exoplanet data correlations</p>
+                            <p>
+                                Use these controls to explore exoplanet data from the <a href="http://www.openexoplanetcatalogue.com/">Open Exoplanet Catalog</a>
+                            </p>
 
                             <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
                             <br/>
@@ -307,7 +308,7 @@
                                             Linear
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsrRadios2"  onClick="updateScaleLog_x()">
+                                            <input type="radio" name="optionsRadios" id="optionsrRadios2" onClick="updateScaleLog_x()">
                                             Log
                                         </label>
                                     </td>
