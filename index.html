@@ -266,7 +266,11 @@
                         div.transition()
                             .duration(200)
                             .style("opacity", 0.9);
-                        div .html("<b>" + d.name + "</b> <br/><div align=\"justify\">" + d.description + "</div>")
+                        div .html("<b>" + d.name + "</b> <br/><div align=\"justify\">" +
+                            d.description + "<table><tr><td><small>Mass [M Jup]</small></td><td>" + d.mass + "</td></tr>" +
+                            "<tr><td><small>Radius [R Jup]</small></td><td>" + d.radius + "</td></tr>" +
+                            "<tr><td><small>Semi-major Axis [AU]   </small></td><td>" + d.semimajoraxis +
+                            "</td></tr></table></div>")
                     })
                     .on("mouseout", function(d) {
                         div.transition()
