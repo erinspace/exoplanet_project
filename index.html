@@ -374,12 +374,10 @@ index.html
                             <p>
                                 Use these controls to explore exoplanet data from the <a href="http://www.openexoplanetcatalogue.com/">Open Exoplanet Catalog</a>.
                             </p>
-                            <p>
-                                Hover over each point to see the planet's name and a description!
-                            <p>
+                            <p>Choose a graph option from the dropdowns below to get started.</p>
 
-                            <button type="button" class="btn btn-default" onclick="updatePlot()">Plot Me</button>
-                            <br/>
+                            <p>Once you have a graph, hover over each point to see the planet's name and a description!</p>
+
                             <table>
                                 <tr>
                                     <td>x-axis</td>
@@ -476,27 +474,29 @@ index.html
                             <tr>
                                 <td><a href="http://en.wikipedia.org/wiki/Astronomical_unit">[AU]</a></td><td>1 AU is the distance the Earth is from the Sun - used as a point of reference when measuring a semimajor axis</td>
                             </tr>
-
-
                         </table>
+
                         <h2>Research Questions!</h2>
                         <p class="lead">With just a little exploration, you can answer all sorts of interesting questions</p>
-                        <p>
-                                Which exoplanet in the dataset has the highest mass?
-                                <button type="button" class="btn btn-default" onclick="customGraph('mass', 'mass', 'radius', 'log', 'log')">check out the graph</button>
-                        </p>
-                        <p>
-                            What year did exoplanet discovery really take off? What do planets discovered using the <a href="http://kepler.nasa.gov/">Kepler space telescope </a>start showing up? How did the mass of planets that we were able to discover change over time?
-                                <button type="button" class="btn btn-default" onclick="customGraph('discoveryyear','mass','radius','linear','log')">plot it</button>
-                        </p>
-                        <p>
-                            What's the average semimajor axis for planets discovered? Are there any planets that are orbiting around their stars about the same distance as Earth? (1 AU or 1e+0 on the axes...).
-                                <button type="button" class="btn btn-default" onclick="customGraph('semimajoraxis','radius','radius','log','linear')">see for yourself</button>
-                        </p>
-                        <p>
-                            How has the average semimajor axis of discovered planets changed over time? What does that say about exoplanet finding techniques?
-                                <button type="button" class="btn btn-default" onclick="customGraph('semimajoraxis','discoveryyear','radius','log','linear')">check it out</button>
-                        </p>
+
+                        <table class="table">
+                            <tr>
+                                    <td>Which exoplanet in the dataset has the highest mass?</td>
+                                    <td><button type="button" class="btn btn-default" onclick="customGraph('mass', 'mass', 'constant', 'log', 'log')">check out the graph</button></td>
+                            </tr>
+                            <tr>
+                                <td>What year did exoplanet discovery really take off? When do planets discovered using the <a href="http://kepler.nasa.gov/">Kepler space telescope </a>start showing up? How did the mass of planets that we were able to discover change over time?</td>
+                                    <td><button type="button" class="btn btn-default" onclick="customGraph('discoveryyear','mass','constant','linear','log')">plot it</button></td>
+                            </tr>
+                            <tr>
+                                <td>What's the average semimajor axis for planets discovered? Are there any planets that are orbiting around their stars about the same distance as Earth? (1 AU or 1e+0 on the axes...).</td>
+                                <td><button type="button" class="btn btn-default" onclick="customGraph('semimajoraxis','radius','constant','log','linear')">see for yourself</button></td>
+                            </tr>
+                            <tr>
+                                <td>How has the average semimajor axis of discovered planets changed over time? What does that say about exoplanet finding techniques?</td>
+                                <td><button type="button" class="btn btn-default" onclick="customGraph('semimajoraxis','discoveryyear','radius','log','linear')">check it out</button></td>
+                            </tr>
+                        <table>
 
                     </div>
 
