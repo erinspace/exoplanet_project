@@ -1,3 +1,10 @@
+<!-- CS50 Final Project
+Fall 2013
+Erin Braswell
+documentation.html
+ -->
+
+
 <!DOCTYPE html>
 
 <html>
@@ -18,6 +25,7 @@
     <body>
 
         <div class="container">
+
             <div class="header">
                 <ul class="nav nav-pills pull-right">
                     <li><a href="http://exoplanets.erinspace.net">Home</a></li>
@@ -26,14 +34,17 @@
                 </ul>
                 <h3 class="text-muted">ExploringExoplanets</h3>
             </div>
-            <div>
+
             <div class="span8">
                 <img id="star" src="./img/sun.png">
                 <div id='planet1-orbit'>
                     <img id="planet1" src="./img/planet.png">
                 </div>
+
                 <h1>Documentation!</h1>
+
                 <p class="lead">I've long been interested in the various interactive graphs that are all over the internet, so I thought for my final project I'd try my hand at making one!</p>
+
                 <p>For this project, I utilized data from the <a href="http://openexoplanetcatalog.org">Open Exoplanet Catalog</a>, which is hosted on github.</p>
 
                 <p>This web application will parse the data from the XML file containing the exoplanet data and create a simple scatterplot based on the options in the form to the left of the graph. More about the specifics of how everything works in the "Design" section!</p>
@@ -42,15 +53,22 @@
 
                 <p>The size dropdown will change the radius value for each point. The larger the radius or mass of the planet that the circle is representing, the larger the point on the scatterplot.</p>
 
-                <p>The plot itself also has a few interactive features. Hovering over each point on the graph will bring up a box with information about that particular planet from the dataset, including the planet's name, a description, mass as compared to the mass of jupiter, radius compared to the radius of Jupiter, and semi-major axis as compared to the distance from the Sun to the Earth (1 AU).</p>
+                <p>The plot itself also has a few interactive features. Hovering over each point on the graph will bring up a box with information about that particular planet from the dataset, including the planet's name, a description, mass as compared to the mass of jupiter, radius compared to the radius of Jupiter, and the distance that the planet is to its host star (semi-major axis) as compared to the distance from the Sun to the Earth (1 AU).</p>
 
-                <p>Beneath the graph and the controls, there's a table explaining some of the vocabulary words and the units used in the scatterplot.</p>
+                <p>Beneath the graph and the controls, there's a table explaining some of the vocabulary words and the units used in the scatterplot. This is meant as a very basic introduction to some </p>
 
                 <p>I decided to pose a few questions and set the initial conditions for someone who might not know where to start when exploring the exoplanet data. The three questions are meant to help users with graph interpretation and give them a starting point.</p>
 
                 <p>The planet and star animation in the upper right hand corner dosen't do anything except look pretty cool. I had a lot of fun learning about css animation!</p>
+            </div>
 
 
+
+        </div>
+
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted">CS50 Fall 2013 Final Project by Erin Braswell</p>
             </div>
         </div>
 

@@ -1,3 +1,9 @@
+<!-- CS50 Final Project
+Fall 2013
+Erin Braswell
+index.html
+ -->
+
 <!DOCTYPE html>
 
 <html>
@@ -8,7 +14,6 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/planet_animation.css"/>
         <script type = "text/javascript" src="./js/d3.v3.js"></script>
         <script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.js"></script>
@@ -153,6 +158,34 @@
                 updatePlot();
             }
 
+            // for the "Research Questions" below, sets the graph to look a certain way
+            var customGraph = function (xparam, yparam, radius, xscale, yscale) {
+                xkey = xparam;
+                ykey = yparam;
+
+                point_radius = radius;
+
+
+                if(xscale == "log") {
+
+                    updateScaleLog_x();
+                }
+                else {
+
+                    updateScaleLinear_x();
+                }
+
+                if(yscale == "log") {
+                    updateScaleLog_y();
+                }
+                else {
+                    updateScaleLinear_y();
+                }
+
+                updatePlot();
+
+            }
+
             // For question 1 below
             var highestMass = function() {
                 xkey = "mass";
@@ -284,7 +317,7 @@
                     .data(data)
                 .enter().append("circle")
                     .attr("class", "dot")
-                    .attr("r", function(d) { return d[point_radius] * 3 ; })
+                    .attr("r", function(d) { return d[point_radius] * 4 ; })
                     .attr("cx", function(d) { return x(d[xkey]); })
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); })
@@ -328,9 +361,6 @@
                     .text(function(d) { return d; });
             };
 
-
-
-
         </script>
 
             <div class="container">
@@ -341,9 +371,10 @@
                       <li><a href="design.html">Design</a></li>
                     </ul>
                     <h3 class="text-muted">ErinSpace</h3>
+                </div>
                 <div class="container-fluid">
                     <div class="row-fluid">
-                        <div class="span4">
+                        <div class="span3">
 
                             <img id="star" src="./img/sun.png">
                             <div id='planet1-orbit'>
@@ -439,39 +470,55 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="span8">
+                        <div class="span9">
                             <div id="plot"></div>
                         </div>
                     </div>
-                    <div class="span12">
+                    <div class="span8 offset2">
                         <h2>Guide</h2>
                         <p class="lead">There's a lot of terminology on this page - here are some quick explainations</p>
                         <table class="table">
                             <tr>
-                                <td>Exoplanet</td><td>A planet going around a star other than our Sun</td>
+                                <td><a href="http://en.wikipedia.org/wiki/Exoplanet">Exoplanet</a></td><td>Short for "extra-solar planet"; a planet going around a star other than our Sun</td>
                             <tr>
-                                <td>[M Jupiter]<br/>[R Jupiter]</td><td><br/>As a point of reference, Astronomers usually compare an exoplanet's mass and radius to Jupiter!</td>
+                                <td>[M Jupiter]<br/>[R Jupiter]</td><td><br/>As a point of reference, Astronomers usually compare an exoplanet's mass and radius to <a href="http://en.wikipedia.org/wiki/Jupiter">Jupiter</a></td>
                             </tr>
                             <tr>
-                                <td>Period</td><td>The amount of time (in Earth days) that the planet takes to go around its star</td>
+                                <td><a href="http://en.wikipedia.org/wiki/Orbital_period">Period</a></td><td>The amount of time (in Earth days) that the planet takes to go around its star</td>
                             </tr>
                             <tr>
-                                <td>Semimajor axis</td><td>A measure of how far away the planet orbits from its star. </td>
+                                <td><a href="http://en.wikipedia.org/wiki/Semi-major_axis">Semimajor axis</a></td><td>A measure of how far away the planet orbits from its star. </td>
                             </tr>
                             <tr>
-                                <td>[AU]</td><td>1 AU is the distance the Earth is from the Sun - used as a point of reference when measuring a semimajor axis</td>
+                                <td><a href="http://en.wikipedia.org/wiki/Astronomical_unit">[AU]</a></td><td>1 AU is the distance the Earth is from the Sun - used as a point of reference when measuring a semimajor axis</td>
                             </tr>
 
 
                         </table>
                         <h2>Research Questions!</h2>
                         <p class="lead">With just a little exploration, you can answer all sorts of interesting questions</p>
-                        <p>Which exoplanet inthe dataset has the highest mass? <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
-                        <p>What year did exoplanet discovery really take off? What do planets discovered using the <a href="http://kepler.nasa.gov/">Kepler space telescope </a>start showing up?  <button type="button" class="btn btn-default" onclick="checkYears()">graph it</button></p>
-                        <p>Question 3 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
+                        <p>
+                                Which exoplanet in the dataset has the highest mass?
+                                <button type="button" class="btn btn-default" onclick="customGraph('mass', 'mass', 'radius', 'log', 'log')">check out the graph</button>
+                        </p>
+                        <p>
+                            What year did exoplanet discovery really take off? What do planets discovered using the <a href="http://kepler.nasa.gov/">Kepler space telescope </a>start showing up? How did the mass of planets that we were able to discover change over time?
+                                <button type="button" class="btn btn-default" onclick="customGraph('discoveryyear','mass','radius','linear','log')">plot it</button>
+                        </p>
+                        <p>
+                            What's the average semimajor axis for planets discovered? Are there any planets that are orbiting around their stars about the same distance as Earth? (1 AU or 1e+0 on the axes...).
+                                <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button>
+                        </p>
 
                     </div>
 
+                </div>
+
+            </div>
+
+            <div id="footer">
+                <div class="container">
+                    <p class="text-muted">CS50 Fall 2013 Final Project by Erin Braswell</p>
                 </div>
             </div>
 
