@@ -153,6 +153,24 @@
                 updatePlot();
             }
 
+            var highestMass = function() {
+                xkey = "mass";
+                ykey = "mass";
+                console.log(xkey);
+                console.log(ykey);
+
+                updatePlot();
+            }
+
+            // read the values from the axes select choices
+            var setAxes = function() {
+                xkey = $(xaxis).val();
+                ykey = $(yaxis).val();
+                point_color = $(pointcolor).val();
+                point_radius = $(pointradius).val();
+
+            }
+
             // update the entire plot
             var updatePlot = function() {
 
@@ -169,11 +187,8 @@
                             .attr("class", "tooltip")
                             .style("opacity", 0);
 
-                // read the values from the axes select choices
-                xkey = $(xaxis).val();
-                ykey = $(yaxis).val();
-                point_color = $(pointcolor).val();
-                point_radius = $(pointradius).val();
+
+
 
                 // set the units for the axes and check for years
                 if (xkey == "mass") {
@@ -298,8 +313,6 @@
                     .attr("dy", ".35em")
                     .style("text-anchor", "end")
                     .text(function(d) { return d; });
-
-
             };
 
 
@@ -408,7 +421,6 @@
                                     <td>
                                         <select id="pointcolor" class="form-control" onchange="updatePlot()">
                                             <option value="discoveryyear">discovery year</option>
-                                            <option value="discoverymethod">discovery method</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -423,12 +435,25 @@
                         <p class="lead">There's a lot of terminology on this page - here are some quick explainations</p>
                         <table class="table">
                             <tr>
-                                <td>[M Jupiter]<br/>[R Jupiter]</td><td>As a point of reference, Astronomers usually compare an exoplanet's mass and radius to Jupiter!</td>
+                                <td>Exoplanet</td><td>A planet going around a star other than our Sun</td>
+                            <tr>
+                                <td>[M Jupiter]<br/>[R Jupiter]</td><td><br/>As a point of reference, Astronomers usually compare an exoplanet's mass and radius to Jupiter!</td>
                             </tr>
+                            <tr>
+                                <td>Period</td><td>The amount of time (in Earth days) that the planet takes to go around its star</td>
+                            </tr>
+                            <tr>
+                                <td>Semimajor axis</td><td>A measure of how far away the planet orbits from its star. </td>
+                            </tr>
+                            <tr>
+                                <td>[AU]</td><td>1 AU is the distance the Earth is from the Sun - used as a point of reference when measuring a semimajor axis</td>
+                            </tr>
+
+
                         </table>
                         <h2>Research Questions!</h2>
                         <p class="lead">With just a little exploration, you can answer all sorts of interesting questions</p>
-                        <p>Which exoplanet has the highest mass? <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
+                        <p>Which exoplanet inthe dataset has the highest mass? <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
                         <p>Question 2 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
 
                     </div>
