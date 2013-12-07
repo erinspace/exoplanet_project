@@ -267,10 +267,8 @@
                             .duration(200)
                             .style("opacity", 0.9);
                         div .html("<b>" + d.name + "</b> <br/><div align=\"justify\">" +
-                            d.description + "<table><tr><td><small>Mass [M Jup]</small></td><td>" + d.mass + "</td></tr>" +
-                            "<tr><td><small>Radius [R Jup]</small></td><td>" + d.radius + "</td></tr>" +
-                            "<tr><td><small>Semi-major Axis [AU]   </small></td><td>" + d.semimajoraxis +
-                            "</td></tr></table></div>")
+                            d.description + "<br/><small>Mass: " + d.mass + " [M Jupiter]<br/>Radius: " + d.radius +
+                            " [R Jupiter]<br/> Semi-major Axis:  " + d.semimajoraxis + " [AU]</small></div>")
                     })
                     .on("mouseout", function(d) {
                         div.transition()
