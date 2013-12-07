@@ -1,3 +1,8 @@
+# XML file combiner for
+# Exploring Exoplanets
+# Erin Braswell
+# Final project, CS50, Fall 2013
+
 import shutil
 import xml.etree.ElementTree as ET, glob
 

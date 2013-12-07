@@ -40,33 +40,39 @@ design.html
 
                 <h1>Design</h1>
 
-                <p class="lead">This project used python, HTML, CSS, and JavaScript</p>
+                <p class="lead">This project used python, HTML, CSS, XML, and JavaScript</p>
 
-                <p>Check out the <a href="https://github.com/erinbspace/exoplanet_project">code on github</a> to see exactly how everything works!</p>
+                <p>Check out the <a href="https://github.com/erinbspace/exoplanet_project">code on github</a></p>
 
                 <h4>Gathering the Data</h4>
 
-                <p>For the first step, I forked the git repository containing the exoplanet data from the <a href="https://github.com/hannorein/open_exoplanet_catalogue">open exoplanet catalog on github.</a> This contained the database in a series of individual XML documents. I used python to concatinate all of the seperate xml files in the database into one long xml file called systems.xml. That way, if I'd like to update it in the future, I can simply pull from the exoplanet catalog github repository and re-create the master systems xml file to be used for plotting.</p>
+                <p>For the first step, I forked the git repository containing the exoplanet data from the <a href="https://github.com/hannorein/open_exoplanet_catalogue">open exoplanet catalog on github.</a> This contained the database in a series of individual XML documents. I used python to concatenate all of the seperate XML files in the database into one long XML file called systems.xml. That way, if I'd like to update it in the future, I can simply pull from the exoplanet catalog github repository and re-create the master systems.xml file to be used for plotting. All of the rendering on the site is done using the systems.xml file that the python script generates.</p>
 
                 <h4>Making sense of it all</h4>
 
-                <p>To start parsing my new xml file, I used tools built in to d3.js that read from the file and stored them in an object that could then later be referenced in other calls to d3 graphing functions. I only decided to add the planet to my database if it had most of the parameters I wanted to deal with: name, mass, radius, semimajoraxis, and period. If the planet had all of that but no description, I simply added a generic one.</p>
+                <p>To start parsing my new XML file, I used tools built in to d3.js that read from the file and stored them in an object that could then later be referenced in other calls to d3 graphing functions. I only decided to add the planet to my database if it had most of the parameters I wanted to deal with: name, mass, radius, semimajoraxis, and period. If the planet had all of that but no description, I simply added a generic one.</p>
 
-                <p>I decided to have all of the javascript in the index.html file because I wanted to easily pass variables back and forth between the HTML forms at the bottom and the graphing calls to d3. When I tried to create a seperate .js file for all of the javascript, I had trouble connecting the html form inputs and the javascript calls to d3 to render the graphs. In lieu of that, I tried to keep everything nicely organized within the javascript on the html page.</p>
+                <p>I decided to have all of the JavaScript in the index.html file because I wanted to easily pass variables back and forth between the HTML forms at the bottom and the graphing calls to d3. When I tried to create a separate .js file for all of the JavaScript, I had trouble connecting the HTML form inputs and the JavaScript calls to d3 to render the graphs. In lieu of that, I tried to keep everything nicely organized within the JavaScript in index.html.</p>
+
+                <h4>Website layout</h4>
+
+                <p>I experimented with some fancy background images, but in the end I liked the sparsity of the plain white background. I feel like there's enough visually interesting things going on in the scatterplot itself, so I let that be the main feature.</p>
+
+                <p>The orbiting feature in the upper left started out as a fun experiment and quickly became a bit of an annoyance. It was a lot harder than I imagined to get the star properly orbiting the planet, and to look ok no matter what your screen size was! In the end I settled for something I didn't love, just to move on from aesthetics and focus more on the guts of the project.</p>
 
 
-                <h4>Wishlist</h4>
+                <h4>For the future</h4>
 
-                <p>While I worked for quite a long time on this project, I simply didn't have time to finsih everything I wanted to finish! Here are a few things that I'll most likely fix in the near future</p>
+                <p>While I worked for quite a long time on this project, I simply didn't have time to finish everything I wanted to finish! Here are a few things that I'd love to fix:</p>
                 <ul>
                     <li>More data from the database to make more choices for displaying the graph</li>
                     <li>An option to export your graph as an image file</li>
                     <li>More color choices. I tried to make discovery method a color choice option, but that did not work very well. To do this I need to fix the color legend.</li>
                     <li>Transitions between chart options. I am just now starting to get the hang of d3, and tried very hard to add pretty transitions between different data representations. I just couldn't do it in time. Soon.</li>
-                    <li>The planet graphic sometimes gets in the way of the text, because I couldn't figure out how to position it better. What started out as a silly idea progressed into a feature that took waaaay too much time for its own good. I'd like to make it better (and maybe add a planet, or in the distant future make that interactive, too!</p>
+                    <li>The planet graphic sometimes gets in the way of the text, because I couldn't figure out how to position it better. What started out as a silly idea progressed into a feature that took way too much time for its own good. I'd like to make it better (and maybe add a planet), or in the distant future make that interactive, too!</p>
                 </ul>
 
-
+                <h4>Sources</h4>
 
                 <p>
                     One thing that's clear is that I had a lot of help from various forums, tutorials, and friends along the way. Here's a list of the tutorials and advice I followed to get everything working.
@@ -74,7 +80,7 @@ design.html
                         <li>python</li>
                             <ul>
                                 <li><a href="http://stackoverflow.com/questions/4706499/how-do-you-append-to-file-in-python">appending to a file</a></li>
-                                <li><a href="http://stackoverflow.com/questions/17749484/python-script-to-concatenate-all-the-files-in-the-directory-into-one-file">saving all xml files to one master database</a></li>
+                                <li><a href="http://stackoverflow.com/questions/17749484/python-script-to-concatenate-all-the-files-in-the-directory-into-one-file">saving all XML files to one master database</a></li>
                                 <li><a href="https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally">python's SimpleHTTPServer for development</a></li>
 
                             </ul>
@@ -93,6 +99,7 @@ design.html
                             <ul>
                                 <li><a href="http://www.codecademy.com/goals/web-beginner-en-ymqg0">planet animation from Codeacademy</a></li>
                                 <li><a href="http://getbootstrap.com/">Twitter bootstrap and documentation</a>
+                                <li><a href="http://www.w3schools.com/">Tutorials and reference guides on w3schools.com</a></li>
                             </ul>
                         <br/>
                         <li>Wonderful friends. Thanks guys!</li>
