@@ -20,18 +20,10 @@ margin-bottom: 5px;
 margin-top: 5px;
 }
 
-.low {
-    padding-bottom: 10px;
-}
-
 #plot {
-padding-top: 50px;
+padding-top: 10px;
 }
 
-td{
-   padding: 0px 0px;
-   position:relative;
-}
 
 div.tooltip {
     position: absolute;

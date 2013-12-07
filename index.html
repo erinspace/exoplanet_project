@@ -110,7 +110,7 @@
             var yunit = "[M Jupiter]"
 
              // set up the scatterplot variables
-            var margin = {top: 20, right: 75, bottom: 30, left: 50},
+            var margin = {top: 20, right: 75, bottom: 40, left: 50},
                 width = 800 - margin.left - margin.right,
                 height = 600 - margin.top - margin.bottom;
 
@@ -206,8 +206,7 @@
                 d3.select("svg").remove();
 
                 // create a new svg element
-                // made this global -- fix later?!?!
-                svg = d3.select("#plot")
+                var svg = d3.select("#plot")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -227,7 +226,7 @@
                 .append("text")
                     .attr("class", "label")
                     .attr("x", width)
-                    .attr("y", -6)
+                    .attr("y", 35)
                     .style("text-anchor", "end")
                     .text(xkey + " " + xunit);
 
@@ -238,7 +237,7 @@
                 .append("text")
                     .attr("class", "label")
                     .attr("transform", "rotate(-90)")
-                    .attr("y", 6)
+                    .attr("y", -45)
                     .attr("dy", ".71em")
                     .style("text-anchor", "end")
                     .text(ykey + " " + yunit);
