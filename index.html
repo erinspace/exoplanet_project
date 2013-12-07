@@ -156,8 +156,10 @@
             var highestMass = function() {
                 xkey = "mass";
                 ykey = "mass";
-                console.log(xkey);
-                console.log(ykey);
+                point_radius = "radius";
+
+                updateScaleLog_x();
+                updateScaleLog_y();
 
                 updatePlot();
             }
@@ -186,8 +188,6 @@
                 var div = d3.select("#plot").append("div")
                             .attr("class", "tooltip")
                             .style("opacity", 0);
-
-
 
 
                 // set the units for the axes and check for years
@@ -356,7 +356,7 @@
                                 <tr>
                                     <td>x-axis</td>
                                     <td>
-                                        <select id="xaxis" class="form-control" onchange="updatePlot()">
+                                        <select id="xaxis" class="form-control" onchange="setAxes();updatePlot()">
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
                                             <option value="period">Period</option>
@@ -382,7 +382,7 @@
                                 <tr>
                                     <td>y-axis</td>
                                     <td>
-                                        <select id="yaxis" class="form-control" onchange="updatePlot()">
+                                        <select id="yaxis" class="form-control" onchange="setAxes();updatePlot()">
                                             <option value="mass">Mass</option>
                                             <option value="radius">Radius</option>
                                             <option value="period">Period</option>
@@ -409,7 +409,7 @@
                                     <br/>
                                     <td>size</td>
                                     <td>
-                                        <select id="pointradius" class="form-control" onchange="updatePlot()">
+                                        <select id="pointradius" class="form-control" onchange="setAxes();updatePlot()">
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
 
@@ -419,7 +419,7 @@
                                  <tr>
                                     <td>color</td>
                                     <td>
-                                        <select id="pointcolor" class="form-control" onchange="updatePlot()">
+                                        <select id="pointcolor" class="form-control" onchange="setAxes();updatePlot()">
                                             <option value="discoveryyear">discovery year</option>
                                         </select>
                                     </td>
@@ -454,6 +454,7 @@
                         <h2>Research Questions!</h2>
                         <p class="lead">With just a little exploration, you can answer all sorts of interesting questions</p>
                         <p>Which exoplanet inthe dataset has the highest mass? <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
+                        <p>Question 2 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
                         <p>Question 2 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
 
                     </div>
