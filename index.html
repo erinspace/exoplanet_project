@@ -85,9 +85,6 @@
                                     planet.discoveryyear = discoveryyear.text();
                                 }
 
-                                // inspect this semimajor axis nonsense
-                                console.log(planet.semimajoraxis);
-
                                 if(!description[0][0]) {
                                     planet.description = "The database dosen't seem to have a description for this planet at the moment. Check back later!";
                                 }
@@ -113,7 +110,7 @@
             var yunit = "[M Jupiter]"
 
              // set up the scatterplot variables
-            var margin = {top: 20, right: 75, bottom: 40, left: 50},
+            var margin = {top: 20, right: 75, bottom: 40, left: 80},
                 width = 800 - margin.left - margin.right,
                 height = 600 - margin.top - margin.bottom;
 
@@ -166,6 +163,11 @@
                 var y_axis = d3.svg.axis()
                             .scale(y)
                             .orient("left");
+
+                // add the planet info tooltip
+                var div = d3.select("#plot").append("div")
+                            .attr("class", "tooltip")
+                            .style("opacity", 0);
 
                 // read the values from the axes select choices
                 xkey = $(xaxis).val();
@@ -244,7 +246,7 @@
                 .append("text")
                     .attr("class", "label")
                     .attr("transform", "rotate(-90)")
-                    .attr("y", -45)
+                    .attr("y", -80)
                     .attr("dy", ".71em")
                     .style("text-anchor", "end")
                     .text(ykey + " " + yunit);
@@ -295,10 +297,7 @@
                     .style("text-anchor", "end")
                     .text(function(d) { return d; });
 
-                // add the planet info box at the bottom
-                var div = d3.select("#plot").append("div")
-                            .attr("class", "tooltip")
-                            .style("opacity", 0);
+
             };
 
 
