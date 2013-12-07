@@ -153,12 +153,25 @@
                 updatePlot();
             }
 
+            // For question 1 below
             var highestMass = function() {
                 xkey = "mass";
                 ykey = "mass";
                 point_radius = "radius";
 
                 updateScaleLog_x();
+                updateScaleLog_y();
+
+                updatePlot();
+            }
+
+            // for questions 2 below
+            var checkYears = function() {
+                xkey = "discoveryyear";
+                ykey = "mass";
+                point_radius = "radius";
+
+                updateScaleLinear_x();
                 updateScaleLog_y();
 
                 updatePlot();
@@ -282,7 +295,7 @@
                             .duration(200)
                             .style("opacity", 0.7);
                         div .html("<b>" + d.name + "</b> <br/><div align=\"justify\">" +
-                            d.description + "<br/><small>Mass: " + d.mass + " [M Jupiter]<br/>Radius: " + d.radius +
+                            d.description + "<br/><br/><small>Mass: " + d.mass + " [M Jupiter]<br/>Radius: " + d.radius +
                             " [R Jupiter]<br/> Semi-major Axis:  " + d.semimajoraxis + " [AU]</small></div>")
                     })
                     .on("mouseout", function(d) {
@@ -454,8 +467,8 @@
                         <h2>Research Questions!</h2>
                         <p class="lead">With just a little exploration, you can answer all sorts of interesting questions</p>
                         <p>Which exoplanet inthe dataset has the highest mass? <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
-                        <p>Question 2 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
-                        <p>Question 2 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
+                        <p>What year did exoplanet discovery really take off? What do planets discovered using the <a href="http://kepler.nasa.gov/">Kepler space telescope </a>start showing up?  <button type="button" class="btn btn-default" onclick="checkYears()">graph it</button></p>
+                        <p>Question 3 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
 
                     </div>
 
