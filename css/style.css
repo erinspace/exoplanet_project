@@ -29,13 +29,13 @@ div.tooltip {
     position: absolute;
     text-align: center;
     width: 500px;
-    height: 28px;
     padding: 2px;
     margin-left: 100px;
     margin-top: 30px;
     font: 16px sans-serif;
-    /*background: #A0A0A0;*/
+    background: #505050;
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
+    color: #FFFFFF;
 }

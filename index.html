@@ -265,7 +265,7 @@
                     .on("mouseover", function(d) {
                         div.transition()
                             .duration(200)
-                            .style("opacity", 0.9);
+                            .style("opacity", 0.7);
                         div .html("<b>" + d.name + "</b> <br/><div align=\"justify\">" +
                             d.description + "<br/><small>Mass: " + d.mass + " [M Jupiter]<br/>Radius: " + d.radius +
                             " [R Jupiter]<br/> Semi-major Axis:  " + d.semimajoraxis + " [AU]</small></div>")
@@ -317,7 +317,7 @@
                     <h3 class="text-muted">ErinSpace</h3>
                 <div class="container-fluid">
                     <div class="row-fluid">
-                        <div class="span3">
+                        <div class="span4">
 
                             <img id="star" src="./img/sun.png">
                             <div id='planet1-orbit'>
@@ -414,10 +414,25 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="span9">
+                        <div class="span8">
                             <div id="plot"></div>
                         </div>
                     </div>
+                    <div class="span12">
+                        <h2>Guide</h2>
+                        <p class="lead">There's a lot of terminology on this page - here are some quick explainations</p>
+                        <table class="table">
+                            <tr>
+                                <td>[M Jupiter]<br/>[R Jupiter]</td><td>As a point of reference, Astronomers usually compare an exoplanet's mass and radius to Jupiter!</td>
+                            </tr>
+                        </table>
+                        <h2>Research Questions!</h2>
+                        <p class="lead">With just a little exploration, you can answer all sorts of interesting questions</p>
+                        <p>Which exoplanet has the highest mass? <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
+                        <p>Question 2 here<button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button></p>
+
+                    </div>
+
                 </div>
             </div>
 
