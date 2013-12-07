@@ -67,7 +67,7 @@
                                 planet.mass = parseFloat(mass.text());
                                 planet.radius = parseFloat(radius.text());
                                 planet.period = parseFloat(period.text());
-                                planet.semimajoraxis = semimajoraxis.text();
+                                planet.semimajoraxis = parseFloat(semimajoraxis.text());
 
 
                                 if(!discoverymethod[0][0]) {
@@ -84,6 +84,9 @@
                                 else {
                                     planet.discoveryyear = discoveryyear.text();
                                 }
+
+                                // inspect this semimajor axis nonsense
+                                console.log(planet.semimajoraxis);
 
                                 if(!description[0][0]) {
                                     planet.description = "The database dosen't seem to have a description for this planet at the moment. Check back later!";
@@ -170,7 +173,6 @@
                 point_color = $(pointcolor).val();
                 point_radius = $(pointradius).val();
 
-
                 // set the units for the axes and check for years
                 if (xkey == "mass") {
                     xunit = "[M Jupiter]";
@@ -181,9 +183,12 @@
                 else if (xkey == "period") {
                     xunit = "[Days]";
                 }
-                else if (xkey = "discoveryyear") {
+                else if (xkey == "discoveryyear") {
                     xunit = "[Earth Year]";
                     x_axis = x_axis.tickFormat(d3.format("0000"));
+                }
+                else if (xkey == "semimajoraxis") {
+                    xunit = "[AU]";
                 }
 
                 if (ykey == "mass") {
@@ -195,10 +200,12 @@
                 else if (ykey == "period") {
                     yunit = "[Days]";
                 }
-                else if (ykey = "discoveryyear") {
+                else if (ykey == "discoveryyear") {
                     yunit = "[Earth Year]";
                     y_axis = y_axis.tickFormat(d3.format("0000"));
-
+                }
+                else if (ykey == "semimajoraxis") {
+                    yunit = "[AU]";
                 }
 
 
@@ -339,6 +346,7 @@
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
                                             <option value="period">Period</option>
+                                            <option value="semimajoraxis">Semimajor Axis</option>
                                             <option value="discoveryyear">Discovery Year</option>
                                         </select>
                                     </td>
@@ -364,6 +372,7 @@
                                             <option value="mass">Mass</option>
                                             <option value="radius">Radius</option>
                                             <option value="period">Period</option>
+                                            <option value="semimajoraxis">Semimajor Axis</option>
                                             <option value="discoveryyear">Discovery Year</option>
                                         </select>
                                     </td>
