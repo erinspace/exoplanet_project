@@ -24,6 +24,10 @@ margin-top: 5px;
     padding-bottom: 10px;
 }
 
+#plot {
+padding-top: 50px;
+}
+
 td{
    padding: 0px 0px;
    position:relative;
