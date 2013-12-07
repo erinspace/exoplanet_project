@@ -186,29 +186,6 @@ index.html
 
             }
 
-            // For question 1 below
-            var highestMass = function() {
-                xkey = "mass";
-                ykey = "mass";
-                point_radius = "radius";
-
-                updateScaleLog_x();
-                updateScaleLog_y();
-
-                updatePlot();
-            }
-
-            // for questions 2 below
-            var checkYears = function() {
-                xkey = "discoveryyear";
-                ykey = "mass";
-                point_radius = "radius";
-
-                updateScaleLinear_x();
-                updateScaleLog_y();
-
-                updatePlot();
-            }
 
             // read the values from the axes select choices
             var setAxes = function() {
@@ -317,7 +294,14 @@ index.html
                     .data(data)
                 .enter().append("circle")
                     .attr("class", "dot")
-                    .attr("r", function(d) { return d[point_radius] * 4 ; })
+                    .attr("r", function(d) {
+
+                        if(point_radius == "constant") {
+                            return 4;
+                        }
+
+                        return d[point_radius] * 4 ; })
+
                     .attr("cx", function(d) { return x(d[xkey]); })
                     .attr("cy", function(d) { return y(d[ykey]); })
                     .style("fill", function(d) { return color(d[point_color]); })
@@ -456,7 +440,7 @@ index.html
                                         <select id="pointradius" class="form-control" onchange="setAxes();updatePlot()">
                                             <option value="radius">Radius</option>
                                             <option value="mass">Mass</option>
-
+                                            <option value="constant">constant</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -507,7 +491,11 @@ index.html
                         </p>
                         <p>
                             What's the average semimajor axis for planets discovered? Are there any planets that are orbiting around their stars about the same distance as Earth? (1 AU or 1e+0 on the axes...).
-                                <button type="button" class="btn btn-default" onclick="highestMass()">check out the graph</button>
+                                <button type="button" class="btn btn-default" onclick="customGraph('semimajoraxis','radius','radius','log','linear')">see for yourself</button>
+                        </p>
+                        <p>
+                            How has the average semimajor axis of discovered planets changed over time? What does that say about exoplanet finding techniques?
+                                <button type="button" class="btn btn-default" onclick="customGraph('semimajoraxis','discoveryyear','radius','log','linear')">check it out</button>
                         </p>
 
                     </div>
