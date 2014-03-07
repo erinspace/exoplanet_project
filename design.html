@@ -48,6 +48,8 @@ design.html
 
                 <p>For the first step, I forked the git repository containing the exoplanet data from the <a href="https://github.com/hannorein/open_exoplanet_catalogue">open exoplanet catalog on github.</a> This contained the database in a series of individual XML documents. I used python to concatenate all of the seperate XML files in the database into one long XML file called systems.xml. That way, if I'd like to update it in the future, I can simply pull from the exoplanet catalog github repository and re-create the master systems.xml file to be used for plotting. All of the rendering on the site is done using the systems.xml file that the python script generates.</p>
 
+                <p>My final submission will include 2 main sections: the open_exoplanet_catalog folder containing the systems folder, and the exoplanet_project folder. The open exoplanet catalog is not my work, but it contains the ogiginal data forked from the catalog on github (link above). It's not directly essential to making my webapp work, as the web app runs off of the systems.xml file that's in the main project folder (that is my work). I included the original raw data just in case the python file that gathers all of the separate XML files needed to be tested.</p>
+
                 <h4>Making sense of it all</h4>
 
                 <p>To start parsing my new XML file, I used tools built in to d3.js that read from the file and stored them in an object that could then later be referenced in other calls to d3 graphing functions. I only decided to add the planet to my database if it had most of the parameters I wanted to deal with: name, mass, radius, semimajoraxis, and period. If the planet had all of that but no description, I simply added a generic one.</p>
